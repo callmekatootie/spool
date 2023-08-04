@@ -6,16 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "./node_modules/.bin/prettier . --write"
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
+    "clsx": "^2.0.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "linkify-plugin-hashtag": "^4.1.1",
+    "linkify-plugin-mention": "^4.1.1",
+    "linkify-react": "^4.1.1",
+    "linkifyjs": "^4.1.1",
     "next": "13.4.12",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3"
+    "swr": "^2.2.0",
+    "tailwindcss": "3.3.3",
+    "threads-api": "^1.6.3"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.10.0",
+    "prettier": "3.0.1"
   }
 }
