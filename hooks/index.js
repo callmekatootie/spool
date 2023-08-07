@@ -1,8 +1,6 @@
 import useSwr from "swr";
 
 const fetcher = (...args) => {
-  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-  console.log(args);
   return fetch(...args[0]).then((res) => res.json());
 };
 
@@ -19,8 +17,6 @@ function useUserTimeline(username) {
       isLoading,
     };
   }
-
-  console.log(data);
 
   const spool = [];
 
@@ -56,7 +52,8 @@ function useUserTimeline(username) {
         thread.replyTo = reference.text_post_app_info.reply_to_author.username;
       }
 
-      thread.content = reference.caption.text;
+      // Quotes posts may or may not have a caption text
+      thread.content = reference.caption?.text || "";
       thread.likeCount = reference.like_count;
 
       // !NOTE view_replies_cta_string can be null

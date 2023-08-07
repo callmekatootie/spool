@@ -1,9 +1,12 @@
 function getReplylabel(replyCount) {
-  return replyCount === 1 ? "reply" : "replies";
+  const suffix = replyCount === 1 ? "reply" : "replies";
+
+  return `${new Intl.NumberFormat().format(replyCount)} ${suffix}`
 }
 
 function getLikeLabel(likeCount) {
-  return `like${likeCount === 1 ? "" : "s"}`;
+  const suffix = `like${likeCount === 1 ? "" : "s"}`
+  return `${new Intl.NumberFormat().format(likeCount)} ${suffix}`;
 }
 
 export default function CellH({ likeCount, replyCount }) {
@@ -13,24 +16,24 @@ export default function CellH({ likeCount, replyCount }) {
     markup = (
       <p className="text-gray-400">
         <span className="pr-2">
-          {replyCount} {getReplylabel(replyCount)}
+          {getReplylabel(replyCount)}
         </span>
         &#183;
         <span className="pl-2">
-          {likeCount} {getLikeLabel(likeCount)}
+          {getLikeLabel(likeCount)}
         </span>
       </p>
     );
   } else if (likeCount > 0) {
     markup = (
       <p className="text-gray-400">
-        {likeCount} {getLikeLabel(likeCount)}
+        {getLikeLabel(likeCount)}
       </p>
     );
   } else if (replyCount > 0) {
     markup = (
       <p className="text-gray-400">
-        {replyCount} {getReplylabel(replyCount)}
+        {getReplylabel(replyCount)}
       </p>
     );
   }

@@ -2,14 +2,14 @@ import clsx from "clsx";
 import Linkify from "linkify-react";
 import "linkify-plugin-mention";
 import "linkify-plugin-hashtag";
-import CellA from "./cellA";
-import CellB from "./cellB";
-import CellC from "./cellC";
-import CellD from "./cellD";
-import CellE from "./cellE";
-import CellF from "./cellF";
-import CellG from "./cellG";
-import CellJ from "./cellJ";
+import CellA from "./CellA";
+import CellB from "./CellB";
+import CellC from "./CellC";
+import CellD from "./CellD";
+import CellE from "./CellE";
+import CellF from "./CellF";
+import CellG from "./CellG";
+import CellJ from "./CellH";
 
 export default function Thread({
   isRepost, // Is this thread a repost?
@@ -58,11 +58,16 @@ export default function Thread({
             target: "_blank",
             render: {
               mention: ({ attributes, content }) => {
-                const { href, ...props } = attributes;
+                const {
+                  href,
+                  class: c,
+                  ...props
+                } = attributes;
 
                 return (
                   <a
                     href={`https://threads.net/@${href.substring(1)}`}
+                    className={c}
                     {...props}
                   >
                     {content}
@@ -70,7 +75,6 @@ export default function Thread({
                 );
               },
               hashtag: (attributes, content) => {
-                console.log(attributes, content);
                 return <a>Test</a>;
               },
             },
