@@ -16,9 +16,7 @@ export default function QuotedPost({
   image, // Details of image in quoted post, if any
 }) {
   return (
-    <article
-      className="border rounded bg-white flex flex-col p-2"
-    >
+    <article className="border rounded bg-white flex flex-col p-2">
       <div className="flex mb-2">
         <CellB handle={handle} profilePic={profilePic} isQuotedPost />
         <CellE handle={handle} createdAt={createdAt} />
@@ -28,7 +26,7 @@ export default function QuotedPost({
       <ImageContent image={image} />
 
       <NestedQuotedPost post={nestedQuotedPost} />
-      
+
       <CellH likeCount={likeCount} replyCount={replyCount} />
     </article>
   );

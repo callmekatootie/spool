@@ -5,7 +5,8 @@ const fetcher = (...args) => {
 };
 
 function useUserTimeline(username) {
-  const { data, error, isLoading, mutate } = useSwr(`/api/users/${username}`,
+  const { data, error, isLoading, mutate } = useSwr(
+    `/api/users/${username}`,
     fetcher,
   );
 
@@ -14,7 +15,7 @@ function useUserTimeline(username) {
       spool: [],
       isError: error,
       isLoading,
-      refetch: mutate
+      refetch: mutate,
     };
   }
 
@@ -46,9 +47,9 @@ function useUserTimeline(username) {
         thread.repostedBy = post.user.username;
 
         if (reference.image_versions2.candidates.length > 0) {
-          thread.image = reference.image_versions2.candidates.reduce((prev, current) => (
-            prev.width > current.width ? prev : current
-          ))
+          thread.image = reference.image_versions2.candidates.reduce(
+            (prev, current) => (prev.width > current.width ? prev : current),
+          );
         }
       } else {
         // For some weird reason, a reposted post can have the post's (the post details
@@ -58,12 +59,11 @@ function useUserTimeline(username) {
         // Hence this exists inside the Else clause...
 
         if (post.image_versions2.candidates.length > 0) {
-          thread.image = post.image_versions2.candidates.reduce((prev, current) => (
-            prev.width > current.width ? prev : current
-          ))
+          thread.image = post.image_versions2.candidates.reduce(
+            (prev, current) => (prev.width > current.width ? prev : current),
+          );
         }
       }
-      
 
       thread.handle = reference.user.username;
       thread.profilePic = reference.user.profile_pic_url;
@@ -99,39 +99,41 @@ function useUserTimeline(username) {
       }
 
       thread.id = post.id;
-      thread.createdAt = post.taken_at
+      thread.createdAt = post.taken_at;
 
       // Handle quoted posts
       if (post.text_post_app_info.share_info.quoted_post) {
-        const quotedPost = post.text_post_app_info.share_info.quoted_post
+        const quotedPost = post.text_post_app_info.share_info.quoted_post;
         thread.quotedPost = {
           handle: quotedPost.user.username,
           profilePic: quotedPost.user.profile_pic_url,
           content: quotedPost.caption?.text || "",
           likeCount: quotedPost.like_count,
-          createdAt: quotedPost.taken_at
-        }
+          createdAt: quotedPost.taken_at,
+        };
 
         if (quotedPost.image_versions2.candidates.length > 0) {
-          thread.quotedPost.image = quotedPost.image_versions2.candidates.reduce((prev, current) => (
-            prev.width > current.width ? prev : current
-          ))
+          thread.quotedPost.image =
+            quotedPost.image_versions2.candidates.reduce((prev, current) =>
+              prev.width > current.width ? prev : current,
+            );
         }
 
         // A quoted post itself can contain another quoted post
         if (quotedPost.text_post_app_info.share_info.quoted_post) {
-          const nestedQuotedPost = quotedPost.text_post_app_info.share_info.quoted_post
+          const nestedQuotedPost =
+            quotedPost.text_post_app_info.share_info.quoted_post;
 
           thread.quotedPost.nestedQuotedPost = {
             handle: nestedQuotedPost.user.username,
-            content: nestedQuotedPost.caption?.text || ""
-          }
+            content: nestedQuotedPost.caption?.text || "",
+          };
 
           if (thread.quotedPost.nestedQuotedPost.content.length === 0) {
             // Check if the nested quoted post contains an image
             // In such a case, the content is `<handle>'s photo`
             if (nestedQuotedPost.image_versions2.candidates.length > 0) {
-              thread.quotedPost.nestedQuotedPost.hasImage = true
+              thread.quotedPost.nestedQuotedPost.hasImage = true;
             }
           }
         }
@@ -145,7 +147,7 @@ function useUserTimeline(username) {
     spool,
     isError: error,
     isLoading,
-    refetch: mutate
+    refetch: mutate,
   };
 }
 

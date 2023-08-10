@@ -57,13 +57,7 @@ export default function Thread({
         <TextContent content={content} />
         <ImageContent image={image} />
 
-        {
-          quotedPost && (
-            <QuotedPost
-              {...quotedPost}
-            />
-          )
-        }
+        {quotedPost && <QuotedPost {...quotedPost} />}
 
         <CellG />
         <CellH likeCount={likeCount} replyCount={replyCount} />

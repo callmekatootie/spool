@@ -5,7 +5,7 @@ import { promises as fs } from "fs";
 
 export default async function handler(req, res) {
   const { username } = req.query;
-  
+
   // const threadsApi = new ThreadsAPI({
   //   deviceID: process.env.DEVICE_ID
   // })
@@ -20,6 +20,6 @@ export default async function handler(req, res) {
     jsonDirectory + `/${username}.json`,
     "utf-8",
   );
-  
+
   res.status(200).json(JSON.parse(fileContents));
 }

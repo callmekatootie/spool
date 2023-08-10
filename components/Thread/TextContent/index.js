@@ -4,7 +4,7 @@ import "linkify-plugin-hashtag";
 
 export default function TextContent({ content }) {
   if (!content || content.length === 0) {
-    return null
+    return null;
   }
 
   return (
@@ -15,11 +15,7 @@ export default function TextContent({ content }) {
           target: "_blank",
           render: {
             mention: ({ attributes, content }) => {
-              const {
-                href,
-                class: c,
-                ...props
-              } = attributes;
+              const { href, class: c, ...props } = attributes;
 
               return (
                 <a
@@ -40,5 +36,5 @@ export default function TextContent({ content }) {
         {content}
       </Linkify>
     </div>
-  )
+  );
 }

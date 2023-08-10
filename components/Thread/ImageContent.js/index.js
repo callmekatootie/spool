@@ -1,8 +1,8 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export default function ImageContent({ image }) {
   if (!image) {
-    return null
+    return null;
   }
 
   return (
@@ -14,5 +14,5 @@ export default function ImageContent({ image }) {
       alt="An image"
       className="rounded w-full h-auto mb-2"
     />
-  )
+  );
 }

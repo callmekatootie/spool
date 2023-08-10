@@ -3,7 +3,7 @@
  */
 
 export default function getTimeSince(datetime) {
-  const now = Date.now()
+  const now = Date.now();
 
   // datetime will be epoch time, hence the 1000 multipler to get milliseconds
   let difference = now - new Date(datetime * 1000);
@@ -12,28 +12,28 @@ export default function getTimeSince(datetime) {
 
   // Seconds
   if (difference < 60) {
-    return `${difference}s`
+    return `${difference}s`;
   }
 
   // Minutes
   difference = Math.floor(difference / 60);
   if (difference < 60) {
-    return `${difference}m`
+    return `${difference}m`;
   }
 
   // Hours
   difference = Math.floor(difference / 60);
   if (difference < 24) {
-    return `${difference}h`
+    return `${difference}h`;
   }
 
   // Days
   difference = Math.floor(difference / 24);
   if (difference < 7) {
-    return `${difference}d`
+    return `${difference}d`;
   }
 
   // Weeks - For everything else
   difference = Math.floor(difference / 7);
-  return `${difference}w`
+  return `${difference}w`;
 }

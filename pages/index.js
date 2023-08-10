@@ -7,54 +7,54 @@ import EmptySpool from "@/components/Spool/EmptySpool";
 import Loader from "@/components/Loader";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true)
-  const [rack, setRack] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [rack, setRack] = useState([]);
 
   useEffect(() => {
     async function fetchRack() {
-      let data = await localforage.getItem(SPOOL_RACK)
-  
+      let data = await localforage.getItem(SPOOL_RACK);
+
       if (data) {
-        setRack(data)
+        setRack(data);
       } else {
         // No data found. Default to some popular accounts
         data = [
           {
             type: "single",
-            username: "zuck"
+            username: "zuck",
           },
           {
             type: "single",
-            username: "gordongram"
+            username: "gordongram",
           },
           {
             type: "single",
-            username: "shakira"
-          }
-        ]
+            username: "shakira",
+          },
+        ];
 
-        setRack(data)
+        setRack(data);
 
-        await localforage.setItem(SPOOL_RACK, data)
+        await localforage.setItem(SPOOL_RACK, data);
       }
-  
-      setLoading(false)
+
+      setLoading(false);
     }
 
-    fetchRack()
-  }, [])
+    fetchRack();
+  }, []);
 
   const onSpoolAddition = async (handle) => {
-    const newSpool = { type: "single", username: handle }
-    await localforage.setItem(SPOOL_RACK, [...rack, newSpool])
-    setRack(current => [...current, newSpool])
-  }
+    const newSpool = { type: "single", username: handle };
+    await localforage.setItem(SPOOL_RACK, [...rack, newSpool]);
+    setRack((current) => [...current, newSpool]);
+  };
 
   const onSpoolDeletion = async (handle) => {
-    const newRack = rack.filter(s => s.username !== handle)
-    await localforage.setItem(SPOOL_RACK, newRack)
-    setRack(newRack)
-  }
+    const newRack = rack.filter((s) => s.username !== handle);
+    await localforage.setItem(SPOOL_RACK, newRack);
+    setRack(newRack);
+  };
 
   if (loading) {
     return (
@@ -75,11 +75,9 @@ export default function Home() {
         <title>Spool | A deck for Threads</title>
       </Head>
       <main className="flex overflow-x-auto pb-px grow">
-        {
-          rack.map(({username}, id) => (
-            <Spool key={id} username={username} onDeletion={onSpoolDeletion} />
-          ))
-        }
+        {rack.map(({ username }, id) => (
+          <Spool key={id} username={username} onDeletion={onSpoolDeletion} />
+        ))}
         <EmptySpool onEnterUsername={onSpoolAddition} />
       </main>
     </div>

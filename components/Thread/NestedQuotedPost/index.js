@@ -2,7 +2,7 @@ import borel from "@/utils/borel";
 
 export default function NestedQuotedPost({ post }) {
   if (!post) {
-    return null
+    return null;
   }
 
   if (post.hasImage && post.content.length === 0) {
@@ -10,12 +10,13 @@ export default function NestedQuotedPost({ post }) {
       <p className={`text-gray-400 mb-2`}>
         <span className={borel.className}>&#8221;</span> {post.handle}'s photo
       </p>
-    )
+    );
   }
 
   return (
     <p className={`text-gray-400 mb-2`}>
-      <span className={borel.className}>&#8221;</span> {post.handle}: {post.content}
+      <span className={borel.className}>&#8221;</span> {post.handle}:{" "}
+      {post.content}
     </p>
-  )
+  );
 }
