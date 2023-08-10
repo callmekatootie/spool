@@ -1,7 +1,4 @@
 import clsx from "clsx";
-import Linkify from "linkify-react";
-import "linkify-plugin-mention";
-import "linkify-plugin-hashtag";
 import CellA from "./CellA";
 import CellB from "./CellB";
 import CellC from "./CellC";
@@ -9,21 +6,28 @@ import CellD from "./CellD";
 import CellE from "./CellE";
 import CellF from "./CellF";
 import CellG from "./CellG";
-import CellJ from "./CellH";
+import CellH from "./CellH";
+import QuotedPost from "./QuotedPost";
+import Image from "next/image";
+import TextContent from "./TextContent";
+import ImageContent from "./ImageContent.js";
 
 export default function Thread({
-  isRepost, // Is this thread a repost?
-  repostedBy, // Handle of author that reposted
-  handle, // Handle of author of thread
-  profilePic, // Profile picture of author of thread
-  isReply, // Is this a reply to another thread?
-  replyTo, // If it's a reply, handle of author being replied to
   content, // Thread body
-  likeCount, // # of likes
-  replyCount, // # of replies
+  createdAt, // Time when the thread was created
+  handle, // Handle of author of thread
   isInternalNode, // Is it part of a tree, but neither root node nor leaf node
-  isRootNode, // Is it the first node in the tree
   isLeafNode, // Is it the last node in the tree
+  isReply, // Is this a reply to another thread?
+  isRepost, // Is this thread a repost?
+  isRootNode, // Is it the first node in the tree
+  likeCount, // # of likes
+  profilePic, // Profile picture of author of thread
+  replyCount, // # of replies
+  replyTo, // If it's a reply, handle of author being replied to
+  repostedBy, // Handle of author that reposted
+  quotedPost, // Details of quoted post, if any
+  image, // Details of image in post, if any
 }) {
   return (
     <article
@@ -48,43 +52,21 @@ export default function Thread({
         })}
       >
         <CellD handle={repostedBy} isRepost={isRepost} />
-        <CellE handle={handle} createdDate={"TBD"} />
+        <CellE handle={handle} createdAt={createdAt} />
         <CellF isReply={isReply} replyTo={replyTo} />
+        <TextContent content={content} />
+        <ImageContent image={image} />
 
-        <Linkify
-          as="p"
-          options={{
-            className: "text-sky-500",
-            target: "_blank",
-            render: {
-              mention: ({ attributes, content }) => {
-                const {
-                  href,
-                  class: c,
-                  ...props
-                } = attributes;
-
-                return (
-                  <a
-                    href={`https://threads.net/@${href.substring(1)}`}
-                    className={c}
-                    {...props}
-                  >
-                    {content}
-                  </a>
-                );
-              },
-              hashtag: (attributes, content) => {
-                return <a>Test</a>;
-              },
-            },
-          }}
-        >
-          {content}
-        </Linkify>
+        {
+          quotedPost && (
+            <QuotedPost
+              {...quotedPost}
+            />
+          )
+        }
 
         <CellG />
-        <CellJ likeCount={likeCount} replyCount={replyCount} />
+        <CellH likeCount={likeCount} replyCount={replyCount} />
       </div>
     </article>
   );

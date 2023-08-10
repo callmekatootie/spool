@@ -1,12 +1,11 @@
 import useSwr from "swr";
 
 const fetcher = (...args) => {
-  return fetch(...args[0]).then((res) => res.json());
+  return fetch(...args).then((res) => res.json());
 };
 
 function useUserTimeline(username) {
-  const { data, error, isLoading } = useSwr(
-    [`/api/threads?${new URLSearchParams({ u: username })}`, { method: "GET" }],
+  const { data, error, isLoading, mutate } = useSwr(`/api/users/${username}`,
     fetcher,
   );
 
@@ -15,6 +14,7 @@ function useUserTimeline(username) {
       spool: [],
       isError: error,
       isLoading,
+      refetch: mutate
     };
   }
 
@@ -37,12 +37,33 @@ function useUserTimeline(username) {
 
       let reference = post;
 
+      // In a repost, the reposted post will have all the details
+      // Hence, we use that as reference
       if (post.text_post_app_info.share_info.reposted_post) {
         reference = post.text_post_app_info.share_info.reposted_post;
 
         thread.isRepost = true;
         thread.repostedBy = post.user.username;
+
+        if (reference.image_versions2.candidates.length > 0) {
+          thread.image = reference.image_versions2.candidates.reduce((prev, current) => (
+            prev.width > current.width ? prev : current
+          ))
+        }
+      } else {
+        // For some weird reason, a reposted post can have the post's (the post details
+        // of the author that reposted) "candidates" attribute to contain some invalid url
+        // like "http://static.cdninstagram.com/rsrc.php/null.jpg" even though
+        // it's not possible for the author to provide an image along with the repost
+        // Hence this exists inside the Else clause...
+
+        if (post.image_versions2.candidates.length > 0) {
+          thread.image = post.image_versions2.candidates.reduce((prev, current) => (
+            prev.width > current.width ? prev : current
+          ))
+        }
       }
+      
 
       thread.handle = reference.user.username;
       thread.profilePic = reference.user.profile_pic_url;
@@ -52,8 +73,9 @@ function useUserTimeline(username) {
         thread.replyTo = reference.text_post_app_info.reply_to_author.username;
       }
 
-      // Quotes posts may or may not have a caption text
+      // Post may or may not have a caption text
       thread.content = reference.caption?.text || "";
+
       thread.likeCount = reference.like_count;
 
       // !NOTE view_replies_cta_string can be null
@@ -77,6 +99,43 @@ function useUserTimeline(username) {
       }
 
       thread.id = post.id;
+      thread.createdAt = post.taken_at
+
+      // Handle quoted posts
+      if (post.text_post_app_info.share_info.quoted_post) {
+        const quotedPost = post.text_post_app_info.share_info.quoted_post
+        thread.quotedPost = {
+          handle: quotedPost.user.username,
+          profilePic: quotedPost.user.profile_pic_url,
+          content: quotedPost.caption?.text || "",
+          likeCount: quotedPost.like_count,
+          createdAt: quotedPost.taken_at
+        }
+
+        if (quotedPost.image_versions2.candidates.length > 0) {
+          thread.quotedPost.image = quotedPost.image_versions2.candidates.reduce((prev, current) => (
+            prev.width > current.width ? prev : current
+          ))
+        }
+
+        // A quoted post itself can contain another quoted post
+        if (quotedPost.text_post_app_info.share_info.quoted_post) {
+          const nestedQuotedPost = quotedPost.text_post_app_info.share_info.quoted_post
+
+          thread.quotedPost.nestedQuotedPost = {
+            handle: nestedQuotedPost.user.username,
+            content: nestedQuotedPost.caption?.text || ""
+          }
+
+          if (thread.quotedPost.nestedQuotedPost.content.length === 0) {
+            // Check if the nested quoted post contains an image
+            // In such a case, the content is `<handle>'s photo`
+            if (nestedQuotedPost.image_versions2.candidates.length > 0) {
+              thread.quotedPost.nestedQuotedPost.hasImage = true
+            }
+          }
+        }
+      }
 
       spool.push(thread);
     }
@@ -86,6 +145,7 @@ function useUserTimeline(username) {
     spool,
     isError: error,
     isLoading,
+    refetch: mutate
   };
 }
 

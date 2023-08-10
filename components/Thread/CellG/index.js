@@ -1,6 +1,6 @@
 export default function CellG() {
   return (
-    <div className="flex pt-2">
+    <div className="flex">
       <div className="hover:bg-gray-100 p-2 -ml-3 hover:cursor-pointer rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
