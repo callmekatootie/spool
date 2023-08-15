@@ -6,8 +6,8 @@ function useUserTimeline(username, cursor) {
     `/api/users/${username}?cursor=${cursor ?? ""}`,
     fetcher,
     {
-      revalidateOnFocus: false
-    }
+      revalidateOnFocus: false,
+    },
   );
 
   if (isLoading) {
@@ -21,7 +21,7 @@ function useUserTimeline(username, cursor) {
 
   const spool = [];
 
-  const { threads } = data
+  const { threads } = data;
 
   for (let i = 0; i < threads.length; i++) {
     const threadItems = threads[i].thread_items;

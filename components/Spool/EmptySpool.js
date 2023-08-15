@@ -21,7 +21,10 @@ export default function EmptySpool({ onEnterUsername }) {
           htmlFor="handle"
         >
           Search for users
-          <TrashOutlineSVG className="w-6 h-6 text-gray-400 cursor-pointer absolute right-2" onClick={() => setShowNameInput(false)} />
+          <TrashOutlineSVG
+            className="w-6 h-6 text-gray-400 cursor-pointer absolute right-2"
+            onClick={() => setShowNameInput(false)}
+          />
         </label>
         <div className="mt-2 rounded-md">
           <div className="flex relative grow">

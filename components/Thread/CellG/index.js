@@ -1,4 +1,9 @@
-import { EnvelopeOutlineSVG, HeartOutlineSVG, ReplyOutlineSVG, RepostOutlineSVG } from "@/components/SVGIcons";
+import {
+  EnvelopeOutlineSVG,
+  HeartOutlineSVG,
+  ReplyOutlineSVG,
+  RepostOutlineSVG,
+} from "@/components/SVGIcons";
 
 export default function CellG() {
   return (

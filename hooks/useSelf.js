@@ -1,13 +1,13 @@
-import useSwr from "swr"
-import { fetcher } from "./common"
+import useSwr from "swr";
+import { fetcher } from "./common";
 
 function useSelf() {
-  const { data: user, mutate } = useSwr("/api/me", fetcher)
+  const { data: user, mutate } = useSwr("/api/me", fetcher);
 
   return {
     user,
-    mutateUser: mutate
-  }
+    mutateUser: mutate,
+  };
 }
 
-export { useSelf }
+export { useSelf };

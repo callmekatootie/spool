@@ -11,8 +11,8 @@ import { useSelf } from "@/hooks/useSelf";
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [rack, setRack] = useState([]);
-  const { user } = useSelf()
-  let loggedInState
+  const { user } = useSelf();
+  let loggedInState;
 
   // Rack - a set of spools. In this case,
   // the spools / columns configured by the user
@@ -63,9 +63,8 @@ export default function Home() {
   };
 
   if (user?.isLoggedIn) {
-
   } else {
-    loggedInState = <NotLoggedIn />
+    loggedInState = <NotLoggedIn />;
   }
 
   if (loading) {
@@ -92,10 +91,7 @@ export default function Home() {
         ))}
         <EmptySpool onEnterUsername={onSpoolAddition} />
       </main>
-      {
-        loggedInState
-      }
-      
+      {loggedInState}
     </div>
   );
 }

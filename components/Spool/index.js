@@ -25,8 +25,14 @@ export default function Spool({ username, onDeletion }) {
           <span className={`pt-2 ${borel.className}`}>&nbsp;@{username}</span>
         </div>
         <div className="flex">
-          <RefreshSolidSVG className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2" onClick={() => refetch()} />
-          <TrashOutlineSVG className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900" onClick={() => onDeletion(username)} />
+          <RefreshSolidSVG
+            className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2"
+            onClick={() => refetch()}
+          />
+          <TrashOutlineSVG
+            className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900"
+            onClick={() => onDeletion(username)}
+          />
         </div>
       </div>
       <section className="flex flex-col h-full overflow-y-auto overflow-x-hidden border-r pr-1 grow">

@@ -17,5 +17,5 @@ export {
   RepostOutlineSVG,
   TrashOutlineSVG,
   UserOutlineSVG,
-  UserSolidSVG
-}
+  UserSolidSVG,
+};
