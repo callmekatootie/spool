@@ -5,11 +5,17 @@ import localforage from "@/utils/localforage";
 import { SPOOL_RACK } from "@/constants";
 import EmptySpool from "@/components/Spool/EmptySpool";
 import Loader from "@/components/Loader";
+import NotLoggedIn from "@/components/NotLoggedIn";
+import { useSelf } from "@/hooks/useSelf";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [rack, setRack] = useState([]);
+  const { user } = useSelf()
+  let loggedInState
 
+  // Rack - a set of spools. In this case,
+  // the spools / columns configured by the user
   useEffect(() => {
     async function fetchRack() {
       let data = await localforage.getItem(SPOOL_RACK);
@@ -56,6 +62,12 @@ export default function Home() {
     setRack(newRack);
   };
 
+  if (user?.isLoggedIn) {
+
+  } else {
+    loggedInState = <NotLoggedIn />
+  }
+
   if (loading) {
     return (
       <div className="bg-zinc-50 text-gray-900 flex flex-col h-screen">
@@ -80,6 +92,10 @@ export default function Home() {
         ))}
         <EmptySpool onEnterUsername={onSpoolAddition} />
       </main>
+      {
+        loggedInState
+      }
+      
     </div>
   );
 }

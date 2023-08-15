@@ -1,13 +1,13 @@
 import useSwr from "swr";
+import { fetcher } from "./common";
 
-const fetcher = (...args) => {
-  return fetch(...args).then((res) => res.json());
-};
-
-function useUserTimeline(username) {
+function useUserTimeline(username, cursor) {
   const { data, error, isLoading, mutate } = useSwr(
-    `/api/users/${username}`,
+    `/api/users/${username}?cursor=${cursor ?? ""}`,
     fetcher,
+    {
+      revalidateOnFocus: false
+    }
   );
 
   if (isLoading) {
@@ -21,8 +21,10 @@ function useUserTimeline(username) {
 
   const spool = [];
 
-  for (let i = 0; i < data.length; i++) {
-    const threadItems = data[i].thread_items;
+  const { threads } = data
+
+  for (let i = 0; i < threads.length; i++) {
+    const threadItems = threads[i].thread_items;
     for (let j = 0; j < threadItems.length; j++) {
       const post = threadItems[j].post;
 
