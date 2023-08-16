@@ -3,19 +3,33 @@ import Thread from "../Thread";
 import { useUserTimeline } from "@/hooks/useUserTimeline";
 import Loader from "../Loader";
 import { RefreshSolidSVG, TrashOutlineSVG, UserSolidSVG } from "../SVGIcons";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import clsx from "clsx";
+import NoMorePost from "../Thread/NoMorePost";
 
 export default function Spool({ username, onDeletion }) {
-  const { spool, isError, isLoading, refetch } = useUserTimeline(username);
+  const { spool, isError, isLoading, refetch, isLoadingMore, isEmpty, isRefreshing, setSize, size, hasReachedEnd } = useUserTimeline(username);
+
+  const [ref, entry] = useIntersectionObserver()
 
   let content;
 
   if (isLoading) {
     content = <Loader />;
   } else {
-    content = spool.map((s) => <Thread key={s.id} {...s} />);
+    content = spool.map((s, i) => <Thread key={`${s.id}${i}`} {...s} />);
   }
 
+  useEffect(() => {
+    if (entry?.isIntersecting && !isRefreshing) {
+      setSize(size + 1)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry?.isIntersecting, isRefreshing])
+
   // !TODO - Handle "error" state from api
+  // !TODO - Handle "isEmpty" state form api
 
   return (
     <section className="flex-shrink-0 w-96 flex flex-col h-full mr-1">
@@ -26,8 +40,11 @@ export default function Spool({ username, onDeletion }) {
         </div>
         <div className="flex">
           <RefreshSolidSVG
-            className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2"
+            className={clsx("w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2", {
+              "animate-spin": isRefreshing
+            })}
             onClick={() => refetch()}
+            refreshInProgress={isRefreshing}
           />
           <TrashOutlineSVG
             className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900"
@@ -37,6 +54,18 @@ export default function Spool({ username, onDeletion }) {
       </div>
       <section className="flex flex-col h-full overflow-y-auto overflow-x-hidden border-r pr-1 grow">
         {content}
+        <section ref={ref}>
+        {
+          isLoadingMore && (
+            <div className="bg-white flex h-16 justify-center">
+              <Loader />
+            </div>
+          )
+        }
+        </section>
+        {
+          hasReachedEnd && <NoMorePost />
+        }
       </section>
     </section>
   );

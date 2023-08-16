@@ -1,6 +1,9 @@
 import { useSelf } from "@/hooks/useSelf";
+import { useState } from "react";
+import styles from "./index.module.css";
 
 export default function NotLoggedIn() {
+  const [signingIn, setSigningIn] = useState(false);
   const { mutateUser } = useSelf();
 
   const login = async () => {
@@ -10,6 +13,24 @@ export default function NotLoggedIn() {
 
     return user;
   };
+
+  const signIn = async () => {
+    setSigningIn(true);
+    mutateUser(await login());
+    window.location.reload();
+  }
+
+  let signInText
+
+  if (signingIn) {
+    signInText = (
+      <span className={styles.loader}></span>
+    )
+  } else {
+    signInText = (
+      <>Login</>
+    )
+  }
 
   return (
     <div className="fixed border bg-amber-300 border-amber-900 px-4 py-3 rounded-lg text-gray-900 w-96 bottom-8 right-4 text-sm">
@@ -22,12 +43,10 @@ export default function NotLoggedIn() {
           Read More
         </button>
         <button
-          className="font-semibold py-2 px-3 bg-amber-400 rounded-md"
-          onClick={async () => {
-            mutateUser(await login());
-          }}
+          className="font-semibold py-2 px-3 bg-amber-400 rounded-md w-16"
+          onClick={signIn}
         >
-          Login
+          {signInText}
         </button>
       </div>
     </div>

@@ -1,27 +1,35 @@
-import useSwr from "swr";
+import useSwrInfinite from "swr/infinite";
 import { fetcher } from "./common";
 
+const getKey = (pageIndex, previousPageData, username) => {
+  if (previousPageData && !previousPageData.cursor) {
+    return null
+  }
+
+  if (pageIndex === 0) {
+    return `/api/users/${username}`
+  }
+
+  return `/api/users/${username}?cursor=${previousPageData.cursor}`
+}
+
 function useUserTimeline(username, cursor) {
-  const { data, error, isLoading, mutate } = useSwr(
-    `/api/users/${username}?cursor=${cursor ?? ""}`,
+  const { data, error, isLoading, mutate, size, setSize, isValidating } = useSwrInfinite(
+    (...args) => getKey(...args, username),
     fetcher,
     {
       revalidateOnFocus: false,
+      persistSize: true
     },
   );
 
-  if (isLoading) {
-    return {
-      spool: [],
-      isError: error,
-      isLoading,
-      refetch: mutate,
-    };
-  }
+  const threads = data ? [].concat(...[].concat(...data).map(d => d.threads)) : []
+  const hasReachedEnd = (data && data.length && !(data[data.length - 1].cursor))
+  const isLoadingMore = !hasReachedEnd && (size > 0 && data && typeof data[size - 1] === "undefined")
+  const isEmpty = data?.[0]?.threads.length === 0
+  const isRefreshing = isValidating && data && data.length === size
 
   const spool = [];
-
-  const { threads } = data;
 
   for (let i = 0; i < threads.length; i++) {
     const threadItems = threads[i].thread_items;
@@ -146,10 +154,16 @@ function useUserTimeline(username, cursor) {
   }
 
   return {
-    spool,
+    hasReachedEnd,
+    isEmpty,
     isError: error,
     isLoading,
+    isLoadingMore,
+    isRefreshing,
     refetch: mutate,
+    setSize,
+    size,
+    spool,
   };
 }
 

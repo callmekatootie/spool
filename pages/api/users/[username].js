@@ -6,7 +6,8 @@ import path from "path";
 import { promises as fs } from "fs";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
-  const { username, cursor } = req.query;
+  let { username, cursor } = req.query;
+
   let data = [];
 
   if (req.session.user) {
@@ -23,7 +24,7 @@ export default withIronSessionApiRoute(async function handler(req, res) {
   //   "utf-8",
   // );
 
-  // res.status(200).json(JSON.parse(fileContents));
+  // res.status(200).json({ threads: JSON.parse(fileContents), cursor: cursor ?? 0 });
 }, sessionOptions);
 
 async function getThreadsWithoutAuth(username) {
@@ -50,5 +51,5 @@ async function getThreadsWithAuth(username, cursor, auth) {
   const userID = await threadsApi.getUserIDfromUsername(username);
   const posts = await threadsApi.getUserProfileThreadsLoggedIn(userID, cursor);
 
-  return { threads: posts.threads, next_max_id: posts.next_max_id };
+  return { threads: posts.threads, cursor: posts.next_max_id };
 }
