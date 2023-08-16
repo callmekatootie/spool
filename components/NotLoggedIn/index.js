@@ -18,18 +18,14 @@ export default function NotLoggedIn() {
     setSigningIn(true);
     mutateUser(await login());
     window.location.reload();
-  }
+  };
 
-  let signInText
+  let signInText;
 
   if (signingIn) {
-    signInText = (
-      <span className={styles.loader}></span>
-    )
+    signInText = <span className={styles.loader}></span>;
   } else {
-    signInText = (
-      <>Login</>
-    )
+    signInText = <>Login</>;
   }
 
   return (

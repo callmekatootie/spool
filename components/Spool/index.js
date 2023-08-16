@@ -9,9 +9,20 @@ import clsx from "clsx";
 import NoMorePost from "../Thread/NoMorePost";
 
 export default function Spool({ username, onDeletion }) {
-  const { spool, isError, isLoading, refetch, isLoadingMore, isEmpty, isRefreshing, setSize, size, hasReachedEnd } = useUserTimeline(username);
+  const {
+    spool,
+    isError,
+    isLoading,
+    refetch,
+    isLoadingMore,
+    isEmpty,
+    isRefreshing,
+    setSize,
+    size,
+    hasReachedEnd,
+  } = useUserTimeline(username);
 
-  const [ref, entry] = useIntersectionObserver()
+  const [ref, entry] = useIntersectionObserver();
 
   let content;
 
@@ -23,10 +34,10 @@ export default function Spool({ username, onDeletion }) {
 
   useEffect(() => {
     if (entry?.isIntersecting && !isRefreshing) {
-      setSize(size + 1)
+      setSize(size + 1);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entry?.isIntersecting, isRefreshing])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry?.isIntersecting, isRefreshing]);
 
   // !TODO - Handle "error" state from api
   // !TODO - Handle "isEmpty" state form api
@@ -40,9 +51,12 @@ export default function Spool({ username, onDeletion }) {
         </div>
         <div className="flex">
           <RefreshSolidSVG
-            className={clsx("w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2", {
-              "animate-spin": isRefreshing
-            })}
+            className={clsx(
+              "w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2",
+              {
+                "animate-spin": isRefreshing,
+              },
+            )}
             onClick={() => refetch()}
             refreshInProgress={isRefreshing}
           />
@@ -55,17 +69,13 @@ export default function Spool({ username, onDeletion }) {
       <section className="flex flex-col h-full overflow-y-auto overflow-x-hidden border-r pr-1 grow">
         {content}
         <section ref={ref}>
-        {
-          isLoadingMore && (
+          {isLoadingMore && (
             <div className="bg-white flex h-16 justify-center">
               <Loader />
             </div>
-          )
-        }
+          )}
         </section>
-        {
-          hasReachedEnd && <NoMorePost />
-        }
+        {hasReachedEnd && <NoMorePost />}
       </section>
     </section>
   );
