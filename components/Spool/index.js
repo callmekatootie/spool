@@ -11,7 +11,7 @@ import NoMorePost from "../Thread/NoMorePost";
 export default function Spool({ username, onDeletion }) {
   const {
     spool,
-    isError,
+    error,
     isLoading,
     refetch,
     isLoadingMore,

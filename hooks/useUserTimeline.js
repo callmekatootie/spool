@@ -7,17 +7,19 @@ const getKey = (pageIndex, previousPageData, username) => {
   }
 
   if (pageIndex === 0) {
-    return `/api/users/${username}`;
+    return `/api/timeline/${username}`;
   }
 
-  return `/api/users/${username}?cursor=${previousPageData.cursor}`;
+  return `/api/timeline/${username}?cursor=${previousPageData.cursor}`;
 };
 
 function useUserTimeline(username, cursor) {
   const { data, error, isLoading, mutate, size, setSize, isValidating } =
     useSwrInfinite((...args) => getKey(...args, username), fetcher, {
+      shouldRetryOnError: false, // Can result in multiple api calls to Threads, which could disable / rate limit the account
       revalidateOnFocus: false,
       persistSize: true,
+      revalidateFirstPage: false // Don't set this to false. See https://github.com/junhoyeo/threads-api/issues/311
     });
 
   const threads = data
@@ -156,7 +158,7 @@ function useUserTimeline(username, cursor) {
   return {
     hasReachedEnd,
     isEmpty,
-    isError: error,
+    error,
     isLoading,
     isLoadingMore,
     isRefreshing,
