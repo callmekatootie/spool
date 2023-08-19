@@ -8,10 +8,10 @@ import CellF from "./CellF";
 import CellG from "./CellG";
 import CellH from "./CellH";
 import QuotedPost from "./QuotedPost";
-import Image from "next/image";
 import TextContent from "./TextContent";
-import ImageContent from "./ImageContent.js";
+import ImageContent from "./ImageContent";
 import VideoContent from "./VideoContent";
+import LinkPreviewContent from "./LinkPreviewContent";
 
 export default function Thread({
   content, // Thread body
@@ -30,6 +30,7 @@ export default function Thread({
   quotedPost, // Details of quoted post, if any
   video, // Details of video in post, if any
   image, // Details of image in post, if any
+  linkPreview, // Details of link previews, if any
 }) {
   return (
     <article
@@ -67,6 +68,7 @@ export default function Thread({
             <ImageContent image={image} />
           )
         }
+        <LinkPreviewContent linkPreview={linkPreview} />
 
         {quotedPost && <QuotedPost {...quotedPost} />}
 

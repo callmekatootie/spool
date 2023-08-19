@@ -58,27 +58,23 @@ function useUserTimeline(username, cursor) {
         thread.isRepost = true;
         thread.repostedBy = post.user.username;
 
-        if (reference.video_versions.length > 0) {
-          thread.video = reference.video_versions[0].url
-        } else if (reference.image_versions2.candidates.length > 0) {
-          thread.image = reference.image_versions2.candidates.reduce(
-            (prev, current) => (prev.width > current.width ? prev : current),
-          );
-        }
-      } else {
-        // For some weird reason, a reposted post can have the post's (the post details
-        // of the author that reposted) "candidates" attribute to contain some invalid url
-        // like "http://static.cdninstagram.com/rsrc.php/null.jpg" even though
-        // it's not possible for the author to provide an image along with the repost
-        // Hence this exists inside the Else clause...
+      }
 
-        if (post.video_versions.length > 0) {
-          thread.video = post.video_versions[0].url
-        } else if (post.image_versions2.candidates.length > 0) {
-          thread.image = post.image_versions2.candidates.reduce(
-            (prev, current) => (prev.width > current.width ? prev : current),
-          );
-        }
+      // Capture video content
+      if (reference.video_versions.length > 0) {
+        thread.video = reference.video_versions[0].url
+      } else if (reference.image_versions2.candidates.length > 0) {
+        // Capture image content - either video or image content possible (or neither). Never both together
+        thread.image = reference.image_versions2.candidates.reduce(
+          (prev, current) => (prev.width > current.width ? prev : current),
+        );
+      }
+
+      // Capture any link previews
+      if (reference.text_post_app_info.link_preview_attachment) {
+        const { display_url: displayUrl, image_url: imageUrl, title, url } = reference.text_post_app_info.link_preview_attachment
+
+        thread.linkPreview = { displayUrl, imageUrl, title, url}
       }
 
       thread.handle = reference.user.username;
@@ -128,14 +124,23 @@ function useUserTimeline(username, cursor) {
           createdAt: quotedPost.taken_at,
         };
 
+        // Capture video in the quoted post
         if (quotedPost.video_versions.length > 0) {
           thread.quotedPost.video =
             quotedPost.video_versions[0].url
         } else if (quotedPost.image_versions2.candidates.length > 0) {
+          // Capture image in the quoted post
           thread.quotedPost.image =
             quotedPost.image_versions2.candidates.reduce((prev, current) =>
               prev.width > current.width ? prev : current,
             );
+        }
+
+        // Capture link previews in the quoted post
+        if (quotedPost.text_post_app_info.link_preview_attachment) {
+          const { display_url: displayUrl, image_url: imageUrl, title, url } = quotedPost.text_post_app_info.link_preview_attachment
+
+          thread.quotedPost.linkPreview = { displayUrl, imageUrl, title, url}
         }
 
         // A quoted post itself can contain another quoted post

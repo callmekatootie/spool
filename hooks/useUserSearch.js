@@ -3,7 +3,8 @@ import { fetcher } from "./common";
 
 function useUserSearch(query) {
   const { data, error, isLoading } = useSwr(!query ? null : `/api/search/users?q=${encodeURIComponent(query)}`, fetcher, {
-    revalidateOnFocus: false
+    shouldRetryOnError: false, // Can result in multiple api calls to Threads, which could disable / rate limit the account
+    revalidateOnFocus: false,
   })
 
   return {
