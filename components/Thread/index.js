@@ -58,16 +58,8 @@ export default function Thread({
         <CellE handle={handle} createdAt={createdAt} />
         <CellF isReply={isReply} replyTo={replyTo} />
         <TextContent content={content} />
-        {
-          video && (
-            <VideoContent url={video} />
-          )
-        }
-        {
-          !video && (
-            <ImageContent image={image} />
-          )
-        }
+        {video && <VideoContent url={video} />}
+        {!video && <ImageContent image={image} />}
         <LinkPreviewContent linkPreview={linkPreview} />
 
         {quotedPost && <QuotedPost {...quotedPost} />}

@@ -6,10 +6,10 @@ import path from "path";
 import { promises as fs } from "fs";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
-  const { q } = req.query
-  const query = decodeURIComponent(q)
+  const { q } = req.query;
+  const query = decodeURIComponent(q);
 
-  let results = []
+  let results = [];
 
   if (req.session.user && q.length) {
     const threadsApi = new ThreadsAPI({
@@ -17,9 +17,9 @@ export default withIronSessionApiRoute(async function handler(req, res) {
       ...req.session.user,
     });
 
-    const data = await threadsApi.searchUsers(query, 7)
+    const data = await threadsApi.searchUsers(query, 7);
 
-    results = data
+    results = data;
     // const jsonDirectory = path.join(process.cwd(), "json");
     // const fileContents = await fs.readFile(
     //   jsonDirectory + `/search-results.json`,
@@ -29,5 +29,5 @@ export default withIronSessionApiRoute(async function handler(req, res) {
     // results = JSON.parse(fileContents)
   }
 
-  res.json(results)
+  res.json(results);
 }, sessionOptions);

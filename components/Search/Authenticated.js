@@ -6,58 +6,60 @@ import Image from "next/image";
 
 export default function AuthenticatedSearch({
   setShowNameInput,
-  onEnterUsername
+  onEnterUsername,
 }) {
   const [handle, setHandle] = useState("");
-  const [query, setQuery] = useState()
+  const [query, setQuery] = useState();
 
-  const { results, error, isLoading} = useUserSearch(query)
+  const { results, error, isLoading } = useUserSearch(query);
 
-  let searchResults
+  let searchResults;
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    setQuery(handle)
+    setQuery(handle);
   };
 
   const onSelectResult = (username) => {
     onEnterUsername(username);
     setHandle("");
     setShowNameInput(false);
-  }
+  };
 
   if (isLoading) {
-    searchResults = (
-      <Loader />
-    )
+    searchResults = <Loader />;
   } else if (results?.length) {
     searchResults = (
       <ul>
-        {
-          results.map(r => (
-            <li key={r.pk} className="flex items-center p-2 hover:bg-gray-100 hover:cursor-pointer" onClick={() => onSelectResult(r.username)}>
-              <Image
-                src={r.profile_pic_url}
-                width={0}
-                height={0}
-                sizes="100vw"
-                alt={`${r.username}'s avatar`}
-                className="rounded-full w-6 h-6"
-              />
-              <div className="flex flex-col">
-                <span className="text-sm ml-3">{r.username}</span>
-                <span className="text-sm text-gray-400 ml-3">{r.full_name}</span>
-              </div>
-            </li>
-          ))
-        }
+        {results.map((r) => (
+          <li
+            key={r.pk}
+            className="flex items-center p-2 hover:bg-gray-100 hover:cursor-pointer"
+            onClick={() => onSelectResult(r.username)}
+          >
+            <Image
+              src={r.profile_pic_url}
+              width={0}
+              height={0}
+              sizes="100vw"
+              alt={`${r.username}'s avatar`}
+              className="rounded-full w-6 h-6"
+            />
+            <div className="flex flex-col">
+              <span className="text-sm ml-3">{r.username}</span>
+              <span className="text-sm text-gray-400 ml-3">{r.full_name}</span>
+            </div>
+          </li>
+        ))}
       </ul>
-    )
-  } else if (results && (!results.length && handle.length)) {
+    );
+  } else if (results && !results.length && handle.length) {
     searchResults = (
-      <p className="text-center text-gray-400 p-4 bg-white text-xs">No users found</p>
-    )
+      <p className="text-center text-gray-400 p-4 bg-white text-xs">
+        No users found
+      </p>
+    );
   }
 
   return (
@@ -97,5 +99,5 @@ export default function AuthenticatedSearch({
         {searchResults}
       </section>
     </section>
-  )
+  );
 }

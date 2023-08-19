@@ -2,13 +2,17 @@ import Image from "next/image";
 
 export default function LinkPreviewContent({ linkPreview }) {
   if (!linkPreview) {
-    return null
+    return null;
   }
 
-  const { displayUrl, imageUrl, title, url} = linkPreview
+  const { displayUrl, imageUrl, title, url } = linkPreview;
 
   return (
-    <a href={url} className="flex flex-col border rounded-b border-gray-200 mb-2" target="_blank">
+    <a
+      href={url}
+      className="flex flex-col border rounded-b border-gray-200 mb-2"
+      target="_blank"
+    >
       <Image
         src={imageUrl}
         width={0}

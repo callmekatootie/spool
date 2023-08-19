@@ -41,9 +41,9 @@ export default function Spool({ username, onDeletion }) {
 
   const onDelete = () => {
     if (window.confirm("Are you sure you want to remove this spool?")) {
-      onDeletion(username)
+      onDeletion(username);
     }
-  }
+  };
 
   // !TODO - Handle "error" state from api
   // !TODO - Handle "isEmpty" state form api

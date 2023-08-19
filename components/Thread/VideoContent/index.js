@@ -8,8 +8,17 @@ export default function VideoContent({ url }) {
    * See - https://stackoverflow.com/a/69802843/2104976
    */
   return (
-    <video className="rounded w-full h-auto mb-2" controls="" autoPlay loop muted>
-      <source src={`/api/video?source=${encodeURIComponent(url)}`} className="w-full h-auto" />
+    <video
+      className="rounded w-full h-auto mb-2"
+      controls=""
+      autoPlay
+      loop
+      muted
+    >
+      <source
+        src={`/api/video?source=${encodeURIComponent(url)}`}
+        className="w-full h-auto"
+      />
     </video>
   );
 }

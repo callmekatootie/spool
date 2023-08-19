@@ -10,7 +10,9 @@ const getKey = (pageIndex, previousPageData, username) => {
     return `/api/timeline/${encodeURIComponent(username)}`;
   }
 
-  return `/api/timeline/${encodeURIComponent(username)}?cursor=${previousPageData.cursor}`;
+  return `/api/timeline/${encodeURIComponent(username)}?cursor=${
+    previousPageData.cursor
+  }`;
 };
 
 function useUserTimeline(username, cursor) {
@@ -19,7 +21,7 @@ function useUserTimeline(username, cursor) {
       shouldRetryOnError: false, // Can result in multiple api calls to Threads, which could disable / rate limit the account
       revalidateOnFocus: false,
       persistSize: true,
-      revalidateFirstPage: false // Don't set this to false. See https://github.com/junhoyeo/threads-api/issues/311
+      revalidateFirstPage: false, // Don't set this to false. See https://github.com/junhoyeo/threads-api/issues/311
     });
 
   const threads = data
@@ -57,12 +59,11 @@ function useUserTimeline(username, cursor) {
 
         thread.isRepost = true;
         thread.repostedBy = post.user.username;
-
       }
 
       // Capture video content
       if (reference.video_versions.length > 0) {
-        thread.video = reference.video_versions[0].url
+        thread.video = reference.video_versions[0].url;
       } else if (reference.image_versions2.candidates.length > 0) {
         // Capture image content - either video or image content possible (or neither). Never both together
         thread.image = reference.image_versions2.candidates.reduce(
@@ -72,9 +73,14 @@ function useUserTimeline(username, cursor) {
 
       // Capture any link previews
       if (reference.text_post_app_info.link_preview_attachment) {
-        const { display_url: displayUrl, image_url: imageUrl, title, url } = reference.text_post_app_info.link_preview_attachment
+        const {
+          display_url: displayUrl,
+          image_url: imageUrl,
+          title,
+          url,
+        } = reference.text_post_app_info.link_preview_attachment;
 
-        thread.linkPreview = { displayUrl, imageUrl, title, url}
+        thread.linkPreview = { displayUrl, imageUrl, title, url };
       }
 
       thread.handle = reference.user.username;
@@ -126,8 +132,7 @@ function useUserTimeline(username, cursor) {
 
         // Capture video in the quoted post
         if (quotedPost.video_versions.length > 0) {
-          thread.quotedPost.video =
-            quotedPost.video_versions[0].url
+          thread.quotedPost.video = quotedPost.video_versions[0].url;
         } else if (quotedPost.image_versions2.candidates.length > 0) {
           // Capture image in the quoted post
           thread.quotedPost.image =
@@ -138,9 +143,14 @@ function useUserTimeline(username, cursor) {
 
         // Capture link previews in the quoted post
         if (quotedPost.text_post_app_info.link_preview_attachment) {
-          const { display_url: displayUrl, image_url: imageUrl, title, url } = quotedPost.text_post_app_info.link_preview_attachment
+          const {
+            display_url: displayUrl,
+            image_url: imageUrl,
+            title,
+            url,
+          } = quotedPost.text_post_app_info.link_preview_attachment;
 
-          thread.quotedPost.linkPreview = { displayUrl, imageUrl, title, url}
+          thread.quotedPost.linkPreview = { displayUrl, imageUrl, title, url };
         }
 
         // A quoted post itself can contain another quoted post

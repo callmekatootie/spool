@@ -7,3 +7,10 @@
 ## Why isn't there a hosted version of this project?
 
 Rate Limits. The API used is an unofficial one. As such, Threads can enforce rate limits that are IP based and can restrict access. If we hosted this project, chances are that it could get immediately rate limited, or worse, blocked permanently by Threads. Hence, the best way to use the application would be for individual users to deploy and use v/s working with a hosted solution.
+
+## TODO
+
+- [ ] If the API throws an error, gracefully handle it in the UI. Right now, for some weird reason, Nextjs throws the error as HTML with 500 status code and swr spams the api until it gets a successful response, even though retryOnError is false
+- [ ] Test search users column by passing in invalid values. We need to display meaningful error messages
+- [ ] Encode and decode any values passed to api (See https://stackoverflow.com/a/62228852/2104976)
+- [ ] Rename the components inside the Threads folder (Cell A, Cell B etc)

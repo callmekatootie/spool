@@ -1,17 +1,21 @@
-import useSwr  from "swr";
+import useSwr from "swr";
 import { fetcher } from "./common";
 
 function useUserSearch(query) {
-  const { data, error, isLoading } = useSwr(!query ? null : `/api/search/users?q=${encodeURIComponent(query)}`, fetcher, {
-    shouldRetryOnError: false, // Can result in multiple api calls to Threads, which could disable / rate limit the account
-    revalidateOnFocus: false,
-  })
+  const { data, error, isLoading } = useSwr(
+    !query ? null : `/api/search/users?q=${encodeURIComponent(query)}`,
+    fetcher,
+    {
+      shouldRetryOnError: false, // Can result in multiple api calls to Threads, which could disable / rate limit the account
+      revalidateOnFocus: false,
+    },
+  );
 
   return {
-    results: data? data.users : null,
+    results: data ? data.users : null,
     error,
-    isLoading
-  }
+    isLoading,
+  };
 }
 
-export { useUserSearch }
+export { useUserSearch };

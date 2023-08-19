@@ -6,16 +6,8 @@ export default function SearchUsers(props) {
   const { user } = useSelf();
 
   if (user?.isLoggedIn) {
-    return (
-      <AuthenticatedSearch
-        {...props}
-      />
-    )
+    return <AuthenticatedSearch {...props} />;
   } else {
-    return (
-      <UnAuthenticatedSearch
-        {...props}
-      />
-    )
+    return <UnAuthenticatedSearch {...props} />;
   }
 }
