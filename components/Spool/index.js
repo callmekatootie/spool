@@ -39,6 +39,12 @@ export default function Spool({ username, onDeletion }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry?.isIntersecting, isRefreshing]);
 
+  const onDelete = () => {
+    if (window.confirm("Are you sure you want to remove this spool?")) {
+      onDeletion(username)
+    }
+  }
+
   // !TODO - Handle "error" state from api
   // !TODO - Handle "isEmpty" state form api
 
@@ -54,15 +60,14 @@ export default function Spool({ username, onDeletion }) {
             className={clsx(
               "w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900 mr-2",
               {
-                "animate-spin": isRefreshing,
+                "animate-spin": isRefreshing || isLoading,
               },
             )}
             onClick={() => refetch()}
-            refreshInProgress={isRefreshing}
           />
           <TrashOutlineSVG
             className="w-6 h-6 text-gray-400 hover:cursor-pointer hover:text-gray-900"
-            onClick={() => onDeletion(username)}
+            onClick={onDelete}
           />
         </div>
       </div>

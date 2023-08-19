@@ -7,10 +7,10 @@ const getKey = (pageIndex, previousPageData, username) => {
   }
 
   if (pageIndex === 0) {
-    return `/api/timeline/${username}`;
+    return `/api/timeline/${encodeURIComponent(username)}`;
   }
 
-  return `/api/timeline/${username}?cursor=${previousPageData.cursor}`;
+  return `/api/timeline/${encodeURIComponent(username)}?cursor=${previousPageData.cursor}`;
 };
 
 function useUserTimeline(username, cursor) {
@@ -58,7 +58,9 @@ function useUserTimeline(username, cursor) {
         thread.isRepost = true;
         thread.repostedBy = post.user.username;
 
-        if (reference.image_versions2.candidates.length > 0) {
+        if (reference.video_versions.length > 0) {
+          thread.video = reference.video_versions[0].url
+        } else if (reference.image_versions2.candidates.length > 0) {
           thread.image = reference.image_versions2.candidates.reduce(
             (prev, current) => (prev.width > current.width ? prev : current),
           );
@@ -70,7 +72,9 @@ function useUserTimeline(username, cursor) {
         // it's not possible for the author to provide an image along with the repost
         // Hence this exists inside the Else clause...
 
-        if (post.image_versions2.candidates.length > 0) {
+        if (post.video_versions.length > 0) {
+          thread.video = post.video_versions[0].url
+        } else if (post.image_versions2.candidates.length > 0) {
           thread.image = post.image_versions2.candidates.reduce(
             (prev, current) => (prev.width > current.width ? prev : current),
           );
@@ -124,7 +128,10 @@ function useUserTimeline(username, cursor) {
           createdAt: quotedPost.taken_at,
         };
 
-        if (quotedPost.image_versions2.candidates.length > 0) {
+        if (quotedPost.video_versions.length > 0) {
+          thread.quotedPost.video =
+            quotedPost.video_versions[0].url
+        } else if (quotedPost.image_versions2.candidates.length > 0) {
           thread.quotedPost.image =
             quotedPost.image_versions2.candidates.reduce((prev, current) =>
               prev.width > current.width ? prev : current,
@@ -142,9 +149,11 @@ function useUserTimeline(username, cursor) {
           };
 
           if (thread.quotedPost.nestedQuotedPost.content.length === 0) {
-            // Check if the nested quoted post contains an image
-            // In such a case, the content is `<handle>'s photo`
-            if (nestedQuotedPost.image_versions2.candidates.length > 0) {
+            // Check if the nested quoted post contains an image (or video)
+            // In such a case, the content is `<handle>'s photo` (or <handle>'s video)
+            if (nestedQuotedPost.video_versions.length > 0) {
+              thread.quotedPost.nestedQuotedPost.hasVideo = true;
+            } else if (nestedQuotedPost.image_versions2.candidates.length > 0) {
               thread.quotedPost.nestedQuotedPost.hasImage = true;
             }
           }

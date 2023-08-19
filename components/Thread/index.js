@@ -11,6 +11,7 @@ import QuotedPost from "./QuotedPost";
 import Image from "next/image";
 import TextContent from "./TextContent";
 import ImageContent from "./ImageContent.js";
+import VideoContent from "./VideoContent";
 
 export default function Thread({
   content, // Thread body
@@ -27,6 +28,7 @@ export default function Thread({
   replyTo, // If it's a reply, handle of author being replied to
   repostedBy, // Handle of author that reposted
   quotedPost, // Details of quoted post, if any
+  video, // Details of video in post, if any
   image, // Details of image in post, if any
 }) {
   return (
@@ -55,7 +57,16 @@ export default function Thread({
         <CellE handle={handle} createdAt={createdAt} />
         <CellF isReply={isReply} replyTo={replyTo} />
         <TextContent content={content} />
-        <ImageContent image={image} />
+        {
+          video && (
+            <VideoContent url={video} />
+          )
+        }
+        {
+          !video && (
+            <ImageContent image={image} />
+          )
+        }
 
         {quotedPost && <QuotedPost {...quotedPost} />}
 

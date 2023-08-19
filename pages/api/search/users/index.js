@@ -7,6 +7,7 @@ import { promises as fs } from "fs";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
   const { q } = req.query
+  const query = decodeURIComponent(q)
 
   let results = []
 
@@ -16,7 +17,7 @@ export default withIronSessionApiRoute(async function handler(req, res) {
       ...req.session.user,
     });
 
-    const data = await threadsApi.searchUsers(q, 7)
+    const data = await threadsApi.searchUsers(query, 7)
 
     results = data
     // const jsonDirectory = path.join(process.cwd(), "json");

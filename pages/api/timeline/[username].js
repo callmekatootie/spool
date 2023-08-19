@@ -8,10 +8,16 @@ import { promises as fs } from "fs";
 export default withIronSessionApiRoute(async function handler(req, res) {
   let { username, cursor } = req.query;
 
+  username = decodeURIComponent(username)
+
   let data = [];
 
   if (req.session.user) {
-    data = await getThreadsWithAuth(username, cursor, req.session.user);
+    try {
+      data = await getThreadsWithAuth(username, cursor, req.session.user);
+    } catch (e) {
+      return res.status(500).json({ threads: [], message: "An error occurred" })
+    }
   } else {
     data = await getThreadsWithoutAuth(username);
   }
