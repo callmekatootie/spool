@@ -6,6 +6,12 @@ import path from "path";
 import { promises as fs } from "fs";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
+  if (!req.session.user) {
+    res.status(401).send({})
+
+    return
+  }
+
   const { q } = req.query;
   const query = decodeURIComponent(q);
 

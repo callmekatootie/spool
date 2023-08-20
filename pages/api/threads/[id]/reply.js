@@ -8,7 +8,7 @@ export default withIronSessionApiRoute(async function handler(req, res) {
 
     return
   }
-  const { id } = req.query
+  const { query: { id }, body } = req
 
   if (req.method === "POST") {
     const threadsApi = new ThreadsAPI({
@@ -16,16 +16,10 @@ export default withIronSessionApiRoute(async function handler(req, res) {
       ...req.session.user,
     });
 
-    await threadsApi.like(id)
-
-    res.status(200).json({})
-  } else if (req.method === "DELETE") {
-    const threadsApi = new ThreadsAPI({
-      deviceID: process.env.DEVICE_ID,
-      ...req.session.user,
-    });
-
-    await threadsApi.unlike(id)
+    await threadsApi.publish({
+      text: body.text,
+      parentPostID: id
+    })
 
     res.status(200).json({})
   } else {

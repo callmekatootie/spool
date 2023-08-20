@@ -1,3 +1,4 @@
+import CloseOutlineSVG from "./CloseOutline";
 import EnvelopeOutlineSVG from "./EnvelopeOutline";
 import HeartOutlineSVG from "./HeartOutline";
 import HeartSolidSVG from "./HeartSolid";
@@ -10,6 +11,7 @@ import UserOutlineSVG from "./UserOutline";
 import UserSolidSVG from "./UserSolid";
 
 export {
+  CloseOutlineSVG,
   EnvelopeOutlineSVG,
   HeartOutlineSVG,
   HeartSolidSVG,

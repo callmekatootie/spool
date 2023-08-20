@@ -67,8 +67,7 @@ export default function Thread({
         {quotedPost && <QuotedPost {...quotedPost} />}
 
         <PostActions
-          hasLiked={hasLiked}
-          threadId={id}
+          post={{ id, handle, hasLiked }}
         />
         <Stats likeCount={likeCount} replyCount={replyCount} />
       </div>
