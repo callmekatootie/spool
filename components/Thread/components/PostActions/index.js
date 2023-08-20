@@ -1,20 +1,15 @@
 import {
   EnvelopeOutlineSVG,
-  HeartOutlineSVG,
   ReplyOutlineSVG,
   RepostOutlineSVG,
 } from "@/components/SVGIcons";
-import { useSelf } from "@/hooks/useSelf";
+import Like from "./components/Like";
 
-export default function PostActions() {
-  const user = useSelf()
-
-
-
+export default function PostActions({ hasLiked, threadId }) {
   return (
     <div className="flex">
       <div className="hover:bg-gray-100 p-2 -ml-3 hover:cursor-pointer rounded-full">
-        <HeartOutlineSVG className="w-6 h-6" />
+        <Like />
       </div>
       <div className="hover:bg-gray-100 p-2 hover:cursor-pointer rounded-full">
         <ReplyOutlineSVG className="w-6 h-6" />

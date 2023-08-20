@@ -96,6 +96,10 @@ function useUserTimeline(username, cursor) {
 
       thread.likeCount = reference.like_count;
 
+      if (reference.has_liked) {
+        thread.hasLiked = true
+      }
+
       // !NOTE view_replies_cta_string can be null
       thread.replyCount = parseInt(
         threadItems[j].view_replies_cta_string?.match(/\d+/)[0] ?? 0,
@@ -116,8 +120,8 @@ function useUserTimeline(username, cursor) {
         thread.isLeafNode = true;
       }
 
-      thread.id = post.id;
-      thread.createdAt = post.taken_at;
+      thread.id = reference.id;
+      thread.createdAt = reference.taken_at;
 
       // Handle quoted posts
       if (post.text_post_app_info.share_info.quoted_post) {

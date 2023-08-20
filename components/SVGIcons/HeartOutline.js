@@ -1,4 +1,4 @@
-export default function HeartOutlineSVG({ className }) {
+export default function HeartOutlineSVG({ className, onClick }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,6 +7,7 @@ export default function HeartOutlineSVG({ className }) {
       strokeWidth="1.5"
       stroke="currentColor"
       className={className}
+      onClick={onClick}
     >
       <path
         strokeLinecap="round"

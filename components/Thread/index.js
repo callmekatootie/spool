@@ -14,6 +14,7 @@ import VideoContent from "./components/VideoContent";
 import LinkPreviewContent from "./components/LinkPreviewContent";
 
 export default function Thread({
+  id,
   content, // Thread body
   createdAt, // Time when the thread was created
   handle, // Handle of author of thread
@@ -31,6 +32,7 @@ export default function Thread({
   video, // Details of video in post, if any
   image, // Details of image in post, if any
   linkPreview, // Details of link previews, if any
+  hasLiked, // Has the current user liked the post?
 }) {
   return (
     <article
@@ -64,7 +66,10 @@ export default function Thread({
 
         {quotedPost && <QuotedPost {...quotedPost} />}
 
-        <PostActions />
+        <PostActions
+          hasLiked={hasLiked}
+          threadId={id}
+        />
         <Stats likeCount={likeCount} replyCount={replyCount} />
       </div>
     </article>
