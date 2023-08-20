@@ -4,8 +4,13 @@ import {
   ReplyOutlineSVG,
   RepostOutlineSVG,
 } from "@/components/SVGIcons";
+import { useSelf } from "@/hooks/useSelf";
 
-export default function CellG() {
+export default function PostActions() {
+  const user = useSelf()
+
+
+
   return (
     <div className="flex">
       <div className="hover:bg-gray-100 p-2 -ml-3 hover:cursor-pointer rounded-full">
@@ -17,7 +22,7 @@ export default function CellG() {
       <div className="hover:bg-gray-100 p-2 hover:cursor-pointer rounded-full">
         <RepostOutlineSVG className="w-6 h-6" />
       </div>
-      <div className="hover:bg-gray-100 p-2 hover:cursor-pointer rounded-full">
+      <div className="hover:bg-gray-100 p-2 hover:cursor-pointer rounded-full opacity-25">
         <EnvelopeOutlineSVG className="w-6 h-6" />
       </div>
     </div>

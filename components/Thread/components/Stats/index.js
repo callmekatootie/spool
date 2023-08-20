@@ -9,7 +9,7 @@ function getLikeLabel(likeCount) {
   return `${new Intl.NumberFormat().format(likeCount)} ${suffix}`;
 }
 
-export default function CellH({ likeCount, replyCount }) {
+export default function Stats({ likeCount, replyCount }) {
   let markup;
 
   if (likeCount > 0 && replyCount > 0) {

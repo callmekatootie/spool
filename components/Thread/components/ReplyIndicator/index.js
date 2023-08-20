@@ -1,4 +1,4 @@
-export default function CellF({ isReply, replyTo }) {
+export default function ReplyIndicator({ isReply, replyTo }) {
   let markup;
 
   if (isReply) {

@@ -21,8 +21,8 @@ export default function LinkPreviewContent({ linkPreview }) {
         alt="An image"
         className="rounded-t w-full h-auto mb-2"
       />
-      <span className="text-sm text-gray-400 p-4">{displayUrl}</span>
-      <p className="text-sm px-4 pb-4">{title}</p>
+      <span className="text-sm text-gray-400 px-4">{displayUrl}</span>
+      <p className="text-sm px-4 pb-2">{title}</p>
     </a>
   );
 }

@@ -1,10 +1,10 @@
-import CellB from "./CellB";
-import CellE from "./CellE";
-import CellH from "./CellH";
-import TextContent from "./TextContent";
-import ImageContent from "./ImageContent";
-import NestedQuotedPost from "./NestedQuotedPost";
-import LinkPreviewContent from "./LinkPreviewContent";
+import ProfilePic from "./components/ProfilePic";
+import Title from "./components/Title";
+import Stats from "./components/Stats";
+import TextContent from "./components/TextContent";
+import ImageContent from "./components/ImageContent";
+import NestedQuotedPost from "./components/NestedQuotedPost";
+import LinkPreviewContent from "./components/LinkPreviewContent";
 
 export default function QuotedPost({
   content, // Thread body
@@ -20,8 +20,8 @@ export default function QuotedPost({
   return (
     <article className="border rounded bg-white flex flex-col p-2">
       <div className="flex mb-2">
-        <CellB handle={handle} profilePic={profilePic} isQuotedPost />
-        <CellE handle={handle} createdAt={createdAt} />
+        <ProfilePic handle={handle} profilePic={profilePic} isQuotedPost />
+        <Title handle={handle} createdAt={createdAt} />
       </div>
 
       <TextContent content={content} />
@@ -30,7 +30,7 @@ export default function QuotedPost({
 
       <NestedQuotedPost post={nestedQuotedPost} />
 
-      <CellH likeCount={likeCount} replyCount={replyCount} />
+      <Stats likeCount={likeCount} replyCount={replyCount} />
     </article>
   );
 }

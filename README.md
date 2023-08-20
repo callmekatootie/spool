@@ -12,5 +12,3 @@ Rate Limits. The API used is an unofficial one. As such, Threads can enforce rat
 
 - [ ] If the API throws an error, gracefully handle it in the UI. Right now, for some weird reason, Nextjs throws the error as HTML with 500 status code and swr spams the api until it gets a successful response, even though retryOnError is false
 - [ ] Test search users column by passing in invalid values. We need to display meaningful error messages
-- [ ] Encode and decode any values passed to api (See https://stackoverflow.com/a/62228852/2104976)
-- [ ] Rename the components inside the Threads folder (Cell A, Cell B etc)

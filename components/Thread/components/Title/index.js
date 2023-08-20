@@ -1,6 +1,6 @@
 import getTimeSince from "@/utils/timeSince";
 
-export default function CellE({ handle, createdAt }) {
+export default function Title({ handle, createdAt }) {
   const dateTile = new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium",
     timeStyle: "short",

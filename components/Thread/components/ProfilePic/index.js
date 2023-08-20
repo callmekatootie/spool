@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 
-export default function CellB({ handle, profilePic, isQuotedPost = false }) {
+export default function ProfilePic({ handle, profilePic, isQuotedPost = false }) {
   return (
     <div
       className={clsx("flex justify-center", {

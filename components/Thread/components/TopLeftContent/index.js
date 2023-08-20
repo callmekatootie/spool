@@ -1,6 +1,6 @@
 import { RepostOutlineSVG } from "@/components/SVGIcons";
 
-export default function CellA({ isRepost, isInternalNode, isLeafNode }) {
+export default function TopLeftContent({ isRepost, isInternalNode, isLeafNode }) {
   let markup;
 
   if (isRepost) {

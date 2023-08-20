@@ -1,17 +1,17 @@
 import clsx from "clsx";
-import CellA from "./CellA";
-import CellB from "./CellB";
-import CellC from "./CellC";
-import CellD from "./CellD";
-import CellE from "./CellE";
-import CellF from "./CellF";
-import CellG from "./CellG";
-import CellH from "./CellH";
+import TopLeftContent from "./components/TopLeftContent";
+import ProfilePic from "./components/ProfilePic";
+import ThreadLink from "./components/ThreadLink";
+import RepostIndicator from "./components/RepostIndicator";
+import Title from "./components/Title";
+import ReplyIndicator from "./components/ReplyIndicator";
+import PostActions from "./components/PostActions";
+import Stats from "./components/Stats";
 import QuotedPost from "./QuotedPost";
-import TextContent from "./TextContent";
-import ImageContent from "./ImageContent";
-import VideoContent from "./VideoContent";
-import LinkPreviewContent from "./LinkPreviewContent";
+import TextContent from "./components/TextContent";
+import ImageContent from "./components/ImageContent";
+import VideoContent from "./components/VideoContent";
+import LinkPreviewContent from "./components/LinkPreviewContent";
 
 export default function Thread({
   content, // Thread body
@@ -41,22 +41,22 @@ export default function Thread({
       })}
     >
       <div className="flex flex-col w-16 shrink-0">
-        <CellA
+        <TopLeftContent
           isRepost={isRepost}
           isInternalNode={isInternalNode}
           isLeafNode={isLeafNode}
         />
-        <CellB handle={handle} profilePic={profilePic} />
-        <CellC isInternalNode={isInternalNode} isRootNode={isRootNode} />
+        <ProfilePic handle={handle} profilePic={profilePic} />
+        <ThreadLink isInternalNode={isInternalNode} isRootNode={isRootNode} />
       </div>
       <div
         className={clsx("flex flex-col grow pr-3 text-sm", {
           "pb-3": isInternalNode || isRootNode || isLeafNode,
         })}
       >
-        <CellD handle={repostedBy} isRepost={isRepost} />
-        <CellE handle={handle} createdAt={createdAt} />
-        <CellF isReply={isReply} replyTo={replyTo} />
+        <RepostIndicator handle={repostedBy} isRepost={isRepost} />
+        <Title handle={handle} createdAt={createdAt} />
+        <ReplyIndicator isReply={isReply} replyTo={replyTo} />
         <TextContent content={content} />
         {video && <VideoContent url={video} />}
         {!video && <ImageContent image={image} />}
@@ -64,8 +64,8 @@ export default function Thread({
 
         {quotedPost && <QuotedPost {...quotedPost} />}
 
-        <CellG />
-        <CellH likeCount={likeCount} replyCount={replyCount} />
+        <PostActions />
+        <Stats likeCount={likeCount} replyCount={replyCount} />
       </div>
     </article>
   );

@@ -1,4 +1,4 @@
-export default function CellC({ isInternalNode, isRootNode }) {
+export default function ThreadLink({ isInternalNode, isRootNode }) {
   let markup;
 
   if (isInternalNode || isRootNode) {

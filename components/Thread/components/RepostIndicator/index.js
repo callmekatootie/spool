@@ -1,4 +1,4 @@
-export default function CellD({ handle, isRepost }) {
+export default function RepostIndicator({ handle, isRepost }) {
   let markup;
 
   if (isRepost) {
