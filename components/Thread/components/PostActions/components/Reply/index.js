@@ -8,7 +8,9 @@ export default function Reply(props) {
 
   const { user } = useSelf();
 
-  const showModal = () => {
+  const showModal = (e) => {
+    e.stopPropagation()
+
     if (!user?.isLoggedIn) {
       alert("You need to be logged in");
 

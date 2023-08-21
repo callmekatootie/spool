@@ -12,6 +12,7 @@ export default function LinkPreviewContent({ linkPreview }) {
       href={url}
       className="flex flex-col border rounded-b border-gray-200 mb-2"
       target="_blank"
+      onClick={(e) => e.stopPropagation()}
     >
       <Image
         src={imageUrl}

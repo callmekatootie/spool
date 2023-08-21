@@ -34,14 +34,20 @@ export default function Thread({
   linkPreview, // Details of link previews, if any
   hasLiked, // Has the current user liked the post?
   isUserVerified, // Is the user verified
+  urlCode, // Unique code to visit url
 }) {
+  const viewPost = () => {
+    window.open(`https://www.threads.net/@${handle}/post/${urlCode}`, '_blank')
+  }
+
   return (
     <article
-      className={clsx("bg-white flex", {
+      className={clsx("bg-white flex hover:bg-sky-50 cursor-pointer", {
         "pt-3": isRootNode,
         "border-b": isLeafNode,
         "py-3 border-b": !isInternalNode && !isRootNode && !isLeafNode,
       })}
+      onClick={viewPost}
     >
       <div className="flex flex-col w-16 shrink-0">
         <TopLeftContent

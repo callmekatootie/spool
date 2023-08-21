@@ -12,3 +12,4 @@ Rate Limits. The API used is an unofficial one. As such, Threads can enforce rat
 
 - [ ] If the API throws an error, gracefully handle it in the UI. Right now, for some weird reason, Nextjs throws the error as HTML with 500 status code and swr spams the api until it gets a successful response, even though retryOnError is false
 - [ ] Test search users column by passing in invalid values. We need to display meaningful error messages
+- [ ] Use Virtual DOM for the spool columns. It can lead to performance issues if we have too many threads displayed

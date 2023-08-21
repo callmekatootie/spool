@@ -14,6 +14,7 @@ export default function Title({ handle, createdAt, isUserVerified }) {
           href={`https://threads.net/@${handle}`}
           className="hover:underline text-gray-900 font-semibold mr-2"
           target="_blank"
+          onClick={(e) => e.stopPropagation()}
         >
           {handle}
         </a>

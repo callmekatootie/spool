@@ -16,7 +16,9 @@ export default function RepostOrQuote(props) {
     setIsFilled(props.hasReposted);
   }, [props.hasReposted]);
 
-  const repost = async () => {
+  const repost = async (e) => {
+    e.stopPropagation()
+
     if (!user?.isLoggedIn) {
       return alert("You need to be logged in");
     }
@@ -37,7 +39,9 @@ export default function RepostOrQuote(props) {
     setShowDropdown(false);
   };
 
-  const quote = () => {
+  const quote = (e) => {
+    e.stopPropagation()
+
     if (!user?.isLoggedIn) {
       alert("You need to be logged in");
 
@@ -53,7 +57,10 @@ export default function RepostOrQuote(props) {
         className={clsx("w-6 h-6", {
           "text-rose-600": isFilled,
         })}
-        onClick={() => setShowDropdown(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowDropdown(true)
+        }}
       />
       {showDropdown && (
         <section

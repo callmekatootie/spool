@@ -20,8 +20,9 @@ export default function TextContent({ content }) {
               return (
                 <a
                   href={`https://threads.net/@${href.substring(1)}`}
-                  className={c}
+                  className={`${c} hover:underline`}
                   {...props}
+                  onClick={(e) => e.stopPropagation()}
                 >
                   {content}
                 </a>

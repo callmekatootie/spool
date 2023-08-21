@@ -10,7 +10,9 @@ export default function Like({ hasLiked, threadId }) {
     setIsFilled(hasLiked);
   }, [hasLiked]);
 
-  const onFavorite = async () => {
+  const onFavorite = async (e) => {
+    e.stopPropagation()
+
     if (!user?.isLoggedIn) {
       return alert("You need to be logged in");
     }
