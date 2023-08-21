@@ -17,7 +17,7 @@ export default function RepostOrQuote(props) {
   }, [props.hasReposted]);
 
   const repost = async (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
 
     if (!user?.isLoggedIn) {
       return alert("You need to be logged in");
@@ -40,7 +40,7 @@ export default function RepostOrQuote(props) {
   };
 
   const quote = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
 
     if (!user?.isLoggedIn) {
       alert("You need to be logged in");
@@ -59,7 +59,7 @@ export default function RepostOrQuote(props) {
         })}
         onClick={(e) => {
           e.stopPropagation();
-          setShowDropdown(true)
+          setShowDropdown(true);
         }}
       />
       {showDropdown && (

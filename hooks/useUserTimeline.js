@@ -123,7 +123,7 @@ function useUserTimeline(username, cursor) {
 
       thread.id = reference.id;
       thread.createdAt = reference.taken_at;
-      thread.urlCode = reference.code
+      thread.urlCode = reference.code;
 
       // Handle quoted posts
       if (post.text_post_app_info.share_info.quoted_post) {

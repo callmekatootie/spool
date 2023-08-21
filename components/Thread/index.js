@@ -37,8 +37,8 @@ export default function Thread({
   urlCode, // Unique code to visit url
 }) {
   const viewPost = () => {
-    window.open(`https://www.threads.net/@${handle}/post/${urlCode}`, '_blank')
-  }
+    window.open(`https://www.threads.net/@${handle}/post/${urlCode}`, "_blank");
+  };
 
   return (
     <article
