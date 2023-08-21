@@ -28,13 +28,13 @@ export default function TextContent({ content }) {
               );
             },
             hashtag: (attributes) => {
-              const { content, attributes: { class: c }} = attributes
+              const {
+                content,
+                attributes: { class: c },
+              } = attributes;
 
               return (
-                <a
-                  href="#"
-                  className={c}
-                >
+                <a href="#" className={c}>
                   {content}
                 </a>
               );

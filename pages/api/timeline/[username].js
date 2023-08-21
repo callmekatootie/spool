@@ -17,9 +17,7 @@ export default withIronSessionApiRoute(async function handler(req, res) {
       data = await getThreadsWithAuth(username, cursor, req.session.user);
     } catch (e) {
       if (e.message?.includes("login_required")) {
-        return res
-          .status(401)
-          .json({ threads: [], message: "login_required" });
+        return res.status(401).json({ threads: [], message: "login_required" });
       }
 
       return res

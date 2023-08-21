@@ -4,28 +4,29 @@ import { useSelf } from "@/hooks/useSelf";
 import ComposeEditor from "@/components/Compose/editor";
 
 export default function Reply(props) {
-  const [showEditor, setShowEditor] = useState(false)
+  const [showEditor, setShowEditor] = useState(false);
 
-  const { user } = useSelf()
+  const { user } = useSelf();
 
   const showModal = () => {
     if (!user?.isLoggedIn) {
-      alert("You need to be logged in")
+      alert("You need to be logged in");
 
-      return
+      return;
     }
 
-    setShowEditor(true)
-  }
+    setShowEditor(true);
+  };
 
   return (
     <>
       <ReplyOutlineSVG className="w-6 h-6" onClick={showModal} />
-      {
-        showEditor && (
-          <ComposeEditor replyToPost={{ ...props }} onClose={() => setShowEditor(false)} />
-        )
-      }
+      {showEditor && (
+        <ComposeEditor
+          replyToPost={{ ...props }}
+          onClose={() => setShowEditor(false)}
+        />
+      )}
     </>
-  )
+  );
 }

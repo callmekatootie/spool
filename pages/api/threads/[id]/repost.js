@@ -4,11 +4,11 @@ import { sessionOptions } from "@/utils/session";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
   if (!req.session.user) {
-    res.status(401).send({})
+    res.status(401).send({});
 
-    return
+    return;
   }
-  const { id } = req.query
+  const { id } = req.query;
 
   if (req.method === "POST") {
     try {
@@ -17,12 +17,12 @@ export default withIronSessionApiRoute(async function handler(req, res) {
         ...req.session.user,
       });
 
-      await threadsApi.repost(id)
+      await threadsApi.repost(id);
 
-      res.status(200).json({})
+      res.status(200).json({});
     } catch (e) {
-      console.log(e)
-      res.status(200).json({})
+      console.log(e);
+      res.status(200).json({});
     }
   } else if (req.method === "DELETE") {
     const threadsApi = new ThreadsAPI({
@@ -30,10 +30,10 @@ export default withIronSessionApiRoute(async function handler(req, res) {
       ...req.session.user,
     });
 
-    await threadsApi.unrepost(id)
+    await threadsApi.unrepost(id);
 
-    res.status(200).json({})
+    res.status(200).json({});
   } else {
-    res.status(405).json({})
+    res.status(405).json({});
   }
-}, sessionOptions)
+}, sessionOptions);

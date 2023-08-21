@@ -33,7 +33,7 @@ export default function Thread({
   image, // Details of image in post, if any
   linkPreview, // Details of link previews, if any
   hasLiked, // Has the current user liked the post?
-  isUserVerified // Is the user verified
+  isUserVerified, // Is the user verified
 }) {
   return (
     <article
@@ -58,7 +58,11 @@ export default function Thread({
         })}
       >
         <RepostIndicator handle={repostedBy} isRepost={isRepost} />
-        <Title handle={handle} createdAt={createdAt} isUserVerified={isUserVerified} />
+        <Title
+          handle={handle}
+          createdAt={createdAt}
+          isUserVerified={isUserVerified}
+        />
         <ReplyIndicator isReply={isReply} replyTo={replyTo} />
         <TextContent content={content} />
         {video && <VideoContent url={video} />}
@@ -67,9 +71,7 @@ export default function Thread({
 
         {quotedPost && <QuotedPost {...quotedPost} />}
 
-        <PostActions
-          post={{ id, handle, hasLiked }}
-        />
+        <PostActions post={{ id, handle, hasLiked }} />
         <Stats likeCount={likeCount} replyCount={replyCount} />
       </div>
     </article>

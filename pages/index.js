@@ -64,7 +64,7 @@ export default function Home() {
   };
 
   if (user?.isLoggedIn) {
-    loggedInState = <ComposeThread />
+    loggedInState = <ComposeThread />;
   } else {
     loggedInState = <NotLoggedIn />;
   }

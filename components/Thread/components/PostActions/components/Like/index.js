@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  HeartOutlineSVG,
-  HeartSolidSVG
-} from "@/components/SVGIcons";
+import { HeartOutlineSVG, HeartSolidSVG } from "@/components/SVGIcons";
 import { useSelf } from "@/hooks/useSelf";
 
-export default function Like ({ hasLiked, threadId }) {
-  const [isFilled, setIsFilled] = useState(false)
-  const { user } = useSelf()
+export default function Like({ hasLiked, threadId }) {
+  const [isFilled, setIsFilled] = useState(false);
+  const { user } = useSelf();
 
   useEffect(() => {
-    setIsFilled(hasLiked)
-  }, [hasLiked])
+    setIsFilled(hasLiked);
+  }, [hasLiked]);
 
   const onFavorite = async () => {
     if (!user?.isLoggedIn) {
@@ -19,22 +16,20 @@ export default function Like ({ hasLiked, threadId }) {
     }
 
     // Optimistic about the update
-    setIsFilled((prev) => !prev)
+    setIsFilled((prev) => !prev);
 
     if (!isFilled) {
-      await fetch(`/api/threads/${threadId}/like`, { method: "POST" })
+      await fetch(`/api/threads/${threadId}/like`, { method: "POST" });
     } else {
-      await fetch(`/api/threads/${threadId}/like`, { method: "DELETE" })
+      await fetch(`/api/threads/${threadId}/like`, { method: "DELETE" });
     }
-  }
+  };
 
   if (isFilled) {
     return (
       <HeartSolidSVG className="w-6 h-6 text-rose-600" onClick={onFavorite} />
-    )
+    );
   } else {
-    return (
-      <HeartOutlineSVG className="w-6 h-6" onClick={onFavorite} />
-    )
+    return <HeartOutlineSVG className="w-6 h-6" onClick={onFavorite} />;
   }
 }

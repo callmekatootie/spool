@@ -23,5 +23,5 @@ export {
   TrashOutlineSVG,
   UserOutlineSVG,
   UserSolidSVG,
-  VerifiedSolidSVG
+  VerifiedSolidSVG,
 };

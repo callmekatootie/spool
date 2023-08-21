@@ -85,7 +85,7 @@ function useUserTimeline(username, cursor) {
 
       thread.handle = reference.user.username;
       thread.profilePic = reference.user.profile_pic_url;
-      thread.isUserVerified = reference.user.is_verified
+      thread.isUserVerified = reference.user.is_verified;
 
       if (reference.text_post_app_info.reply_to_author) {
         thread.isReply = true;
@@ -98,7 +98,7 @@ function useUserTimeline(username, cursor) {
       thread.likeCount = reference.like_count;
 
       if (reference.has_liked) {
-        thread.hasLiked = true
+        thread.hasLiked = true;
       }
 
       // !NOTE view_replies_cta_string can be null
@@ -133,7 +133,7 @@ function useUserTimeline(username, cursor) {
           content: quotedPost.caption?.text || "",
           likeCount: quotedPost.like_count,
           createdAt: quotedPost.taken_at,
-          isUserVerified: quotedPost.user.is_verified
+          isUserVerified: quotedPost.user.is_verified,
         };
 
         // Capture video in the quoted post

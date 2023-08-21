@@ -16,13 +16,17 @@ export default function QuotedPost({
   nestedQuotedPost, // Details of nested quoted post, if any
   image, // Details of image in quoted post, if any
   linkPreview, // Details of link previews, if any
-  isUserVerified // Is the user verified
+  isUserVerified, // Is the user verified
 }) {
   return (
     <article className="border rounded bg-white flex flex-col p-2">
       <div className="flex mb-2">
         <ProfilePic handle={handle} profilePic={profilePic} isQuotedPost />
-        <Title handle={handle} createdAt={createdAt} isUserVerified={isUserVerified} />
+        <Title
+          handle={handle}
+          createdAt={createdAt}
+          isUserVerified={isUserVerified}
+        />
       </div>
 
       <TextContent content={content} />

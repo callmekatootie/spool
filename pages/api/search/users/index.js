@@ -7,9 +7,9 @@ import { promises as fs } from "fs";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
   if (!req.session.user) {
-    res.status(401).send({})
+    res.status(401).send({});
 
-    return
+    return;
   }
 
   const { q } = req.query;

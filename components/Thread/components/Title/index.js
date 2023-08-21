@@ -17,11 +17,9 @@ export default function Title({ handle, createdAt, isUserVerified }) {
         >
           {handle}
         </a>
-        {
-          isUserVerified && (
-            <VerifiedSolidSVG className="w-4 h-4 text-sky-400" />
-          )
-        }
+        {isUserVerified && (
+          <VerifiedSolidSVG className="w-4 h-4 text-sky-400" />
+        )}
       </span>
       <time
         className="text-gray-400"

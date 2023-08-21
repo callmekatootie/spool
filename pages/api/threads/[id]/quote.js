@@ -4,11 +4,14 @@ import { sessionOptions } from "@/utils/session";
 
 export default withIronSessionApiRoute(async function handler(req, res) {
   if (!req.session.user) {
-    res.status(401).send({})
+    res.status(401).send({});
 
-    return
+    return;
   }
-  const { query: { id }, body } = req
+  const {
+    query: { id },
+    body,
+  } = req;
 
   if (req.method === "POST") {
     const threadsApi = new ThreadsAPI({
@@ -18,11 +21,11 @@ export default withIronSessionApiRoute(async function handler(req, res) {
 
     await threadsApi.publish({
       text: body.text,
-      quotedPostID: id
-    })
+      quotedPostID: id,
+    });
 
-    res.status(200).json({})
+    res.status(200).json({});
   } else {
-    res.status(405).json({})
+    res.status(405).json({});
   }
-}, sessionOptions)
+}, sessionOptions);
