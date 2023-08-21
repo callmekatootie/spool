@@ -12,10 +12,10 @@ export default function PostActions({ post }) {
         <Like hasLiked={post.hasLiked} threadId={post.id} />
       </div>
       <div className="hover:bg-gray-100 p-2 cursor-pointer rounded-full">
-        <Reply id={post.id} handle={post.handle} />
+        <Reply threadId={post.id} handle={post.handle} />
       </div>
       <div className="hover:bg-gray-100 p-2 cursor-pointer rounded-full">
-        <RepostOrQuote hasReposted={false} threadId={post.id} />
+        <RepostOrQuote hasReposted={false} threadId={post.id} handle={post.handle} />
       </div>
       <div className="hover:bg-gray-100 p-2 rounded-full opacity-25 cursor-not-allowed">
         <EnvelopeOutlineSVG className="w-6 h-6" />
