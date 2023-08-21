@@ -28,15 +28,15 @@ export default function Home() {
         data = [
           {
             type: "single",
+            username: "cnn",
+          },
+          {
+            type: "single",
             username: "zuck",
           },
           {
             type: "single",
-            username: "gordongram",
-          },
-          {
-            type: "single",
-            username: "shakira",
+            username: "jlo",
           },
         ];
 
