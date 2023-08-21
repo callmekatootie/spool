@@ -1,6 +1,14 @@
 {
   "name": "spool",
   "version": "0.1.0",
+  "description": "A deck for Threads. Think Tweetdeck, but for Threads.",
+  "keywords": ["threads", "meta", "tweetdeck", "tweets"],
+  "homepage": "https://github.com/callmekatootie/spool#readme",
+  "bugs": "https://github.com/callmekatootie/spool/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Mithun Kamath"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -34,5 +42,9 @@
   "devDependencies": {
     "eslint-config-prettier": "^8.10.0",
     "prettier": "3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/callmekatootie/spool"
   }
 }
