@@ -27,8 +27,17 @@ export default function TextContent({ content }) {
                 </a>
               );
             },
-            hashtag: (attributes, content) => {
-              return <a>Test</a>;
+            hashtag: (attributes) => {
+              const { content, attributes: { class: c }} = attributes
+
+              return (
+                <a
+                  href="#"
+                  className={c}
+                >
+                  {content}
+                </a>
+              );
             },
           },
         }}

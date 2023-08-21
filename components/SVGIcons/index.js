@@ -9,6 +9,7 @@ import RepostOutlineSVG from "./RepostOutline";
 import TrashOutlineSVG from "./TrashOutline";
 import UserOutlineSVG from "./UserOutline";
 import UserSolidSVG from "./UserSolid";
+import VerifiedSolidSVG from "./VerifiedSolid";
 
 export {
   CloseOutlineSVG,
@@ -22,4 +23,5 @@ export {
   TrashOutlineSVG,
   UserOutlineSVG,
   UserSolidSVG,
+  VerifiedSolidSVG
 };

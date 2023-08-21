@@ -1,6 +1,7 @@
+import { VerifiedSolidSVG } from "@/components/SVGIcons";
 import getTimeSince from "@/utils/timeSince";
 
-export default function Title({ handle, createdAt }) {
+export default function Title({ handle, createdAt, isUserVerified }) {
   const dateTile = new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium",
     timeStyle: "short",
@@ -8,13 +9,20 @@ export default function Title({ handle, createdAt }) {
 
   return (
     <div className="flex justify-between leading-6 w-full">
-      <a
-        href={`https://threads.net/@${handle}`}
-        className="hover:underline text-gray-900 font-semibold"
-        target="_blank"
-      >
-        {handle}
-      </a>
+      <span className="flex items-center">
+        <a
+          href={`https://threads.net/@${handle}`}
+          className="hover:underline text-gray-900 font-semibold mr-2"
+          target="_blank"
+        >
+          {handle}
+        </a>
+        {
+          isUserVerified && (
+            <VerifiedSolidSVG className="w-4 h-4 text-sky-400" />
+          )
+        }
+      </span>
       <time
         className="text-gray-400"
         dateTime={new Date(createdAt * 1000).toISOString()}

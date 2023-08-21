@@ -7,6 +7,7 @@ import EmptySpool from "@/components/Spool/EmptySpool";
 import Loader from "@/components/Loader";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import { useSelf } from "@/hooks/useSelf";
+import ComposeThread from "@/components/Compose";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -63,6 +64,7 @@ export default function Home() {
   };
 
   if (user?.isLoggedIn) {
+    loggedInState = <ComposeThread />
   } else {
     loggedInState = <NotLoggedIn />;
   }
