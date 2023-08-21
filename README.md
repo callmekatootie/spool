@@ -18,10 +18,10 @@ Your app should be available at `localhost:3000` by default.
 Set the following environment variables before running the app:
 
 ```js
-THREADS_USERNAME // Your Threads account username
-THREADS_PASSWORD // Your Threads account password
-DEVICE_ID // A unique id to identify your device. Example `android-ertquuil3x57000`. Needed to use the API
-SECRET_COOKIE_PASSWORD // A secret for your auth cookie
+THREADS_USERNAME; // Your Threads account username
+THREADS_PASSWORD; // Your Threads account password
+DEVICE_ID; // A unique id to identify your device. Example `android-ertquuil3x57000`. Needed to use the API
+SECRET_COOKIE_PASSWORD; // A secret for your auth cookie
 ```
 
 ## Features

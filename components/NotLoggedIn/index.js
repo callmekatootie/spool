@@ -35,7 +35,11 @@ export default function NotLoggedIn() {
         this mode.
       </p>
       <div className="flex items-center justify-end mt-4">
-        <a href="https://github.com/callmekatootie/spool#limitations-if-you-dont-login" className="leading-6 font-semibold bg-transparent mr-4" target="_blank">
+        <a
+          href="https://github.com/callmekatootie/spool#limitations-if-you-dont-login"
+          className="leading-6 font-semibold bg-transparent mr-4"
+          target="_blank"
+        >
           Read More
         </a>
         <button
