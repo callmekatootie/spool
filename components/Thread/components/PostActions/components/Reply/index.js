@@ -2,6 +2,7 @@ import { useState, useReducer } from "react";
 import { CloseOutlineSVG, ReplyOutlineSVG } from "@/components/SVGIcons";
 import { useSelf } from "@/hooks/useSelf";
 import styles from "./index.module.css";
+import { useClickAway } from "@uidotdev/usehooks";
 
 const DISPATCH_TYPE = {
   REPLY_INVOKED: "reply_invoked",
@@ -48,6 +49,8 @@ export default function Reply(props) {
     submitInProgress: false
   })
 
+  const ref = useClickAway(() => dispatch({ type: DISPATCH_TYPE.INVOKED_CLOSE }))
+
   const { user } = useSelf()
 
   const showModal = () => {
@@ -83,7 +86,7 @@ export default function Reply(props) {
       {
         state.showModal && (
           <div className="fixed top-0 left-0 z-50 w-screen h-screen bg-black/50 flex items-center justify-center">
-            <section className="bg-white w-2/6 rounded border p-4">
+            <section className="bg-white w-2/6 rounded border p-4" ref={ref}>
               <label className="text-sm font-semibold text-gray-900 flex justify-between block" htmlFor="reply">
                 <span>Reply to @{props.handle}</span>
                 <span>

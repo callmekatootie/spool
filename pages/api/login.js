@@ -3,6 +3,10 @@ import { sessionOptions } from "@/utils/session";
 import { ThreadsAPI } from "threads-api";
 
 export default withIronSessionApiRoute(async (req, res) => {
+  if (req.method !== "POST") {
+    return res.status(405).json({})
+  }
+
   try {
     const user = {};
 
