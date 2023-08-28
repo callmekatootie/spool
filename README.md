@@ -4,7 +4,7 @@ An unofficial client to view multiple [Threads](https://www.threads.net/) togeth
 
 Demo Video:
 
-https://github.com/callmekatootie/spool/assets/2317133/ec191111-b7d4-49a6-8a42-2782b4328a4d
+https://github.com/callmekatootie/spool/assets/2317133/30f506f2-f1df-43fd-9f78-194bf094252c
 
 ## Installation
 
