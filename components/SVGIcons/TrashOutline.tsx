@@ -1,4 +1,6 @@
-export default function TrashOutlineSVG({ className, onClick }) {
+import { SVGIconProps } from ".";
+
+export default function TrashOutlineSVG({ className, onClick }: SVGIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import CloseOutlineSVG from "./CloseOutline";
 import EnvelopeOutlineSVG from "./EnvelopeOutline";
 import HeartOutlineSVG from "./HeartOutline";
@@ -10,6 +11,11 @@ import TrashOutlineSVG from "./TrashOutline";
 import UserOutlineSVG from "./UserOutline";
 import UserSolidSVG from "./UserSolid";
 import VerifiedSolidSVG from "./VerifiedSolid";
+
+export type SVGIconProps = {
+  className: string,
+  onClick?: MouseEventHandler
+}
 
 export {
   CloseOutlineSVG,

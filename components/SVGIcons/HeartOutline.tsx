@@ -1,4 +1,6 @@
-export default function HeartOutlineSVG({ className, onClick }) {
+import { SVGIconProps } from ".";
+
+export default function HeartOutlineSVG({ className, onClick }: SVGIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

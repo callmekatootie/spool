@@ -1,4 +1,6 @@
-export default function RepostOutlineSVG({ className, onClick }) {
+import { SVGIconProps } from ".";
+
+export default function RepostOutlineSVG({ className, onClick }: SVGIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

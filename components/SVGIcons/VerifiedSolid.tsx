@@ -1,4 +1,6 @@
-export default function VerifiedSolidSVG({ className }) {
+import { SVGIconProps } from ".";
+
+export default function VerifiedSolidSVG({ className }: SVGIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
