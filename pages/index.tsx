@@ -9,9 +9,14 @@ import NotLoggedIn from "@/components/NotLoggedIn";
 import { useSelf } from "@/hooks/useSelf";
 import ComposeThread from "@/components/Compose";
 
+type SpoolConfig = {
+  type: "single",
+  username: string
+}
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
-  const [rack, setRack] = useState([]);
+  const [rack, setRack] = useState<Array<SpoolConfig>>([]);
   const { user } = useSelf();
   let loggedInState;
 
@@ -19,7 +24,7 @@ export default function Home() {
   // the spools / columns configured by the user
   useEffect(() => {
     async function fetchRack() {
-      let data = await localforage.getItem(SPOOL_RACK);
+      let data = await localforage.getItem<Array<SpoolConfig>>(SPOOL_RACK);
 
       if (data) {
         setRack(data);
@@ -51,13 +56,13 @@ export default function Home() {
     fetchRack();
   }, []);
 
-  const onSpoolAddition = async (handle) => {
-    const newSpool = { type: "single", username: handle };
+  const onSpoolAddition = async (handle: string) => {
+    const newSpool = { type: "single" as const, username: handle };
     await localforage.setItem(SPOOL_RACK, [...rack, newSpool]);
     setRack((current) => [...current, newSpool]);
   };
 
-  const onSpoolDeletion = async (handle) => {
+  const onSpoolDeletion = async (handle: string) => {
     const newRack = rack.filter((s) => s.username !== handle);
     await localforage.setItem(SPOOL_RACK, newRack);
     setRack(newRack);
