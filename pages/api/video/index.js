@@ -35,6 +35,8 @@ export default async function proxyVideo(req, res) {
       },
       (error) => {
         if (error) {
+          console.log("ERROR")
+          console.log(error)
           return reject(error);
         }
 

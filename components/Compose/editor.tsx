@@ -1,16 +1,39 @@
-import { useReducer } from "react";
+import { MutableRefObject, useReducer } from "react";
+import type { SpoolThread } from "@/application-types";
 import { CloseOutlineSVG } from "@/components/SVGIcons";
 import styles from "./index.module.css";
 import { useClickAway } from "@uidotdev/usehooks";
 
-const DISPATCH_TYPE = {
-  INVOKED_CLOSE: "invoked_close",
-  SUBMITTING_CONTENT: "submitting_content",
-  SUBMITTED_CONTENT: "submitted_content",
-  UPDATED_CONTENT: "updated_content",
+enum DISPATCH_TYPE {
+  INVOKED_CLOSE = "invoked_close",
+  SUBMITTING_CONTENT = "submitting_content",
+  SUBMITTED_CONTENT = "submitted_content",
+  UPDATED_CONTENT = "updated_content",
 };
 
-function reducer(state, action) {
+const initialState = {
+  content: "",
+  submitInProgress: false
+}
+
+type ACTION_A = {
+  type: DISPATCH_TYPE.INVOKED_CLOSE | DISPATCH_TYPE.SUBMITTING_CONTENT | DISPATCH_TYPE.SUBMITTED_CONTENT
+}
+
+type ACTION_B = {
+  type: DISPATCH_TYPE.UPDATED_CONTENT,
+  content: string
+}
+
+type ACTION_TYPES = ACTION_A | ACTION_B
+
+type ComposeEditorProps = Partial<{
+  replyToPost: Pick<SpoolThread, 'id' | 'handle'>,
+  quotePost: Pick<SpoolThread, 'id' | 'handle'> & { hasReposted: boolean },
+  onClose: () => void
+}>
+
+function reducer(state: typeof initialState, action: ACTION_TYPES) {
   switch (action.type) {
     case DISPATCH_TYPE.INVOKED_CLOSE:
     case DISPATCH_TYPE.SUBMITTED_CONTENT:
@@ -29,20 +52,15 @@ function reducer(state, action) {
         ...state,
         content: action.content,
       };
-    default:
-      throw Error(`Unknown action ${action.type}`);
   }
 }
 
-export default function ComposeEditor({ replyToPost, quotePost, onClose }) {
-  const [state, dispatch] = useReducer(reducer, {
-    content: "",
-    submitInProgress: false,
-  });
+export default function ComposeEditor({ replyToPost, quotePost, onClose = () => null }: ComposeEditorProps) {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const ref = useClickAway(() => closeEditor());
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     dispatch({ type: DISPATCH_TYPE.SUBMITTING_CONTENT });
@@ -50,9 +68,9 @@ export default function ComposeEditor({ replyToPost, quotePost, onClose }) {
     let endpoint;
 
     if (replyToPost) {
-      endpoint = `/api/threads/${replyToPost.threadId}/reply`;
+      endpoint = `/api/threads/${replyToPost.id}/reply`;
     } else if (quotePost) {
-      endpoint = `/api/threads/${quotePost.threadId}/quote`;
+      endpoint = `/api/threads/${quotePost.id}/quote`;
     } else {
       endpoint = `/api/threads`;
     }
@@ -95,7 +113,7 @@ export default function ComposeEditor({ replyToPost, quotePost, onClose }) {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-screen h-screen bg-black/50 flex items-center justify-center">
-      <section className="bg-white w-2/6 rounded border p-4" ref={ref}>
+      <section className="bg-white w-2/6 rounded border p-4" ref={ref as MutableRefObject<HTMLElement>}>
         <label
           className="text-sm font-semibold text-gray-900 flex justify-between block"
           htmlFor="content"

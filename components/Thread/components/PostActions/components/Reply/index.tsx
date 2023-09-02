@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { ReplyOutlineSVG } from "@/components/SVGIcons";
+import { ReplyOutlineSVG, SVGIconProps } from "@/components/SVGIcons";
 import { useSelf } from "@/hooks/useSelf";
 import ComposeEditor from "@/components/Compose/editor";
+import type { SpoolThread } from "@/application-types";
 
-export default function Reply(props) {
+type ReplyProps = Pick<SpoolThread, 'id' | 'handle'>
+
+export default function Reply(props: ReplyProps) {
   const [showEditor, setShowEditor] = useState(false);
 
   const { user } = useSelf();
 
-  const showModal = (e) => {
+  const showModal: SVGIconProps["onClick"] = (e) => {
     e.stopPropagation();
 
     if (!user?.isLoggedIn) {

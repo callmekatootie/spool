@@ -1,8 +1,13 @@
+import type { SpoolThread } from "@/application-types";
 import Linkify from "linkify-react";
 import "linkify-plugin-mention";
 import "linkify-plugin-hashtag";
 
-export default function TextContent({ content }) {
+type TextContentProps = {
+  content: SpoolThread["content"]
+}
+
+export default function TextContent({ content }: TextContentProps) {
   if (!content || content.length === 0) {
     return null;
   }

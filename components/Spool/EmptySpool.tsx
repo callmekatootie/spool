@@ -2,7 +2,11 @@ import { useState } from "react";
 import { PlusSolidSVG } from "../SVGIcons";
 import SearchUsers from "../Search";
 
-export default function EmptySpool({ onEnterUsername }) {
+type EmptySpoolProps = {
+  onEnterUsername: (handle: string) => void
+}
+
+export default function EmptySpool({ onEnterUsername }: EmptySpoolProps) {
   const [showNameInput, setShowNameInput] = useState(false);
 
   if (showNameInput) {

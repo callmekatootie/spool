@@ -12,6 +12,26 @@ export type SpoolThreadLinkPreview = {
   url: string,
 }
 
+export type SpoolThreadNestedQuotedPost = {
+  content: string,
+  handle: string,
+  hasImage?: boolean,
+  hasVideo?: boolean,
+}
+
+export type SpoolThreadQuotedPost = {
+  content: string,
+  createdAt: number,
+  handle: string,
+  image?: Candidate | ThreadsHdProfilePicVersion,
+  isUserVerified: boolean,
+  likeCount: number,
+  linkPreview?: SpoolThreadLinkPreview,
+  nestedQuotedPost?: SpoolThreadNestedQuotedPost,
+  video?: string,
+  profilePic: string,
+}
+
 export type SpoolThread = {
   content: string,
   createdAt: number,
@@ -28,23 +48,7 @@ export type SpoolThread = {
   likeCount: number,
   linkPreview?: SpoolThreadLinkPreview,
   profilePic: string,
-  quotedPost?: {
-    content: string,
-    createdAt: number,
-    handle: string,
-    image?: Candidate | ThreadsHdProfilePicVersion,
-    isUserVerified: boolean,
-    likeCount: number,
-    linkPreview?: SpoolThreadLinkPreview,
-    nestedQuotedPost?: {
-      content: string,
-      handle: string,
-      hasImage?: boolean,
-      hasVideo?: boolean,
-    },
-    video?: string,
-    profilePic: string,
-  },
+  quotedPost?: SpoolThreadQuotedPost,
   replyCount: number,
   replyTo?: string,
   repostedBy?: string,

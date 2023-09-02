@@ -1,4 +1,10 @@
-export default function VideoContent({ url }) {
+import type { SpoolThread } from "@/application-types";
+
+type VideoContentProps = {
+  url: SpoolThread["video"],
+}
+
+export default function VideoContent({ url }: VideoContentProps) {
   if (!url) {
     return null;
   }

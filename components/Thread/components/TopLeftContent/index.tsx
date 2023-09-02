@@ -1,10 +1,13 @@
+import type { SpoolThread } from "@/application-types";
 import { RepostOutlineSVG } from "@/components/SVGIcons";
+
+type TopLeftContent = Pick<SpoolThread, 'isRepost' | 'isInternalNode' | 'isLeafNode'>
 
 export default function TopLeftContent({
   isRepost,
   isInternalNode,
   isLeafNode,
-}) {
+}: TopLeftContent) {
   let markup;
 
   if (isRepost) {

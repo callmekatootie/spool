@@ -8,7 +8,12 @@ import { useEffect } from "react";
 import clsx from "clsx";
 import NoMorePost from "../Thread/NoMorePost";
 
-export default function Spool({ username, onDeletion }) {
+type SpoolProps = {
+  username: string,
+  onDeletion: (handle: string) => void
+}
+
+export default function Spool({ username, onDeletion }: SpoolProps) {
   const {
     spool,
     error,
@@ -73,7 +78,7 @@ export default function Spool({ username, onDeletion }) {
       </div>
       <section className="flex flex-col h-full overflow-y-auto overflow-x-hidden border-r pr-1 grow">
         {content}
-        <section ref={ref}>
+        <section ref={ref as React.MutableRefObject<HTMLElement>}>
           {isLoadingMore && (
             <div className="bg-white flex h-16 justify-center">
               <Loader />

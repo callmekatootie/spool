@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { RepostOutlineSVG } from "@/components/SVGIcons";
 import { useClickAway } from "@uidotdev/usehooks";
 import { useSelf } from "@/hooks/useSelf";
 import clsx from "clsx";
 import ComposeEditor from "@/components/Compose/editor";
+import type { SpoolThread } from "@/application-types";
 
-export default function RepostOrQuote(props) {
+type RepostOrQuoteProps = Pick<SpoolThread, 'id' | 'handle'> & { hasReposted: boolean }
+
+export default function RepostOrQuote(props: RepostOrQuoteProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -16,7 +19,7 @@ export default function RepostOrQuote(props) {
     setIsFilled(props.hasReposted);
   }, [props.hasReposted]);
 
-  const repost = async (e) => {
+  const repost: MouseEventHandler = async (e) => {
     e.stopPropagation();
 
     if (!user?.isLoggedIn) {
@@ -24,11 +27,11 @@ export default function RepostOrQuote(props) {
     }
 
     if (!isFilled) {
-      await fetch(`/api/threads/${props.threadId}/repost`, { method: "POST" });
+      await fetch(`/api/threads/${props.id}/repost`, { method: "POST" });
 
       setIsFilled(true);
     } else {
-      await fetch(`/api/threads/${props.threadId}/repost`, {
+      await fetch(`/api/threads/${props.id}/repost`, {
         method: "DELETE",
       });
       setIsFilled(false);
@@ -39,7 +42,7 @@ export default function RepostOrQuote(props) {
     setShowDropdown(false);
   };
 
-  const quote = (e) => {
+  const quote: MouseEventHandler = (e) => {
     e.stopPropagation();
 
     if (!user?.isLoggedIn) {
@@ -65,7 +68,7 @@ export default function RepostOrQuote(props) {
       {showDropdown && (
         <section
           className="absolute top-6 left-0 bg-white shadow z-50 rounded-lg"
-          ref={ref}
+          ref={ref as React.MutableRefObject<HTMLElement>}
         >
           <ul className="py-2 text-gray-900">
             {/* <li onClick={repost}> */}

@@ -2,7 +2,12 @@
   "name": "spool",
   "version": "0.1.0",
   "description": "A deck for Threads. Think Tweetdeck, but for Threads.",
-  "keywords": ["threads", "meta", "tweetdeck", "tweets"],
+  "keywords": [
+    "threads",
+    "meta",
+    "tweetdeck",
+    "tweets"
+  ],
   "homepage": "https://github.com/callmekatootie/spool#readme",
   "bugs": "https://github.com/callmekatootie/spool/issues",
   "license": "MIT",
@@ -20,7 +25,7 @@
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "@uidotdev/usehooks": "^2.1.1",
+    "@uidotdev/usehooks": "^2.2.0",
     "autoprefixer": "10.4.15",
     "clsx": "^2.0.0",
     "eslint": "8.48.0",

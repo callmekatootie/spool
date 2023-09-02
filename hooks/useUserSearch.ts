@@ -1,7 +1,7 @@
 import useSwr from "swr";
 import { fetcher } from "./common";
 
-function useUserSearch(query) {
+function useUserSearch(query: string) {
   const { data, error, isLoading } = useSwr(
     !query ? null : `/api/search/users?q=${encodeURIComponent(query)}`,
     fetcher,

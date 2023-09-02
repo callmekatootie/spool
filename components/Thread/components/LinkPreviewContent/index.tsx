@@ -1,6 +1,11 @@
 import Image from "next/image";
+import type { SpoolThreadLinkPreview } from "@/application-types";
 
-export default function LinkPreviewContent({ linkPreview }) {
+type LinkPreviewContentProps = {
+  linkPreview?: SpoolThreadLinkPreview
+}
+
+export default function LinkPreviewContent({ linkPreview }: LinkPreviewContentProps) {
   if (!linkPreview) {
     return null;
   }

@@ -5,6 +5,7 @@ import TextContent from "./components/TextContent";
 import ImageContent from "./components/ImageContent";
 import NestedQuotedPost from "./components/NestedQuotedPost";
 import LinkPreviewContent from "./components/LinkPreviewContent";
+import { SpoolThreadQuotedPost } from "@/application-types";
 
 export default function QuotedPost({
   content, // Thread body
@@ -12,12 +13,11 @@ export default function QuotedPost({
   handle, // Handle of author of thread
   likeCount, // # of likes
   profilePic, // Profile picture of author of thread
-  replyCount, // # of replies
   nestedQuotedPost, // Details of nested quoted post, if any
   image, // Details of image in quoted post, if any
   linkPreview, // Details of link previews, if any
   isUserVerified, // Is the user verified
-}) {
+}: SpoolThreadQuotedPost) {
   return (
     <article className="border rounded bg-white flex flex-col p-2">
       <div className="flex mb-2">
@@ -35,7 +35,7 @@ export default function QuotedPost({
 
       <NestedQuotedPost post={nestedQuotedPost} />
 
-      <Stats likeCount={likeCount} replyCount={replyCount} />
+      <Stats likeCount={likeCount} replyCount={0} />
     </article>
   );
 }

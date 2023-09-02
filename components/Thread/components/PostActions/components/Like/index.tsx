@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import { HeartOutlineSVG, HeartSolidSVG } from "@/components/SVGIcons";
+import { HeartOutlineSVG, HeartSolidSVG, SVGIconProps } from "@/components/SVGIcons";
 import { useSelf } from "@/hooks/useSelf";
+import type { SpoolThread } from "@/application-types";
 
-export default function Like({ hasLiked, threadId }) {
+type LikeProps = Pick<SpoolThread, 'id' | 'hasLiked'>
+
+export default function Like({ hasLiked, id }: LikeProps) {
   const [isFilled, setIsFilled] = useState(false);
   const { user } = useSelf();
 
   useEffect(() => {
-    setIsFilled(hasLiked);
+    setIsFilled(!!hasLiked);
   }, [hasLiked]);
 
-  const onFavorite = async (e) => {
+  const onFavorite: SVGIconProps["onClick"] = async (e) => {
     e.stopPropagation();
 
     if (!user?.isLoggedIn) {
@@ -21,9 +24,9 @@ export default function Like({ hasLiked, threadId }) {
     setIsFilled((prev) => !prev);
 
     if (!isFilled) {
-      await fetch(`/api/threads/${threadId}/like`, { method: "POST" });
+      await fetch(`/api/threads/${id}/like`, { method: "POST" });
     } else {
-      await fetch(`/api/threads/${threadId}/like`, { method: "DELETE" });
+      await fetch(`/api/threads/${id}/like`, { method: "DELETE" });
     }
   };
 

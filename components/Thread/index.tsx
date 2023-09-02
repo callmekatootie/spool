@@ -12,6 +12,7 @@ import TextContent from "./components/TextContent";
 import ImageContent from "./components/ImageContent";
 import VideoContent from "./components/VideoContent";
 import LinkPreviewContent from "./components/LinkPreviewContent";
+import type { SpoolThread } from "@/application-types";
 
 export default function Thread({
   id,
@@ -35,7 +36,7 @@ export default function Thread({
   hasLiked, // Has the current user liked the post?
   isUserVerified, // Is the user verified
   urlCode, // Unique code to visit url
-}) {
+}: SpoolThread) {
   const viewPost = () => {
     window.open(`https://www.threads.net/@${handle}/post/${urlCode}`, "_blank");
   };

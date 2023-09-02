@@ -1,6 +1,11 @@
+import type { SpoolThread } from "@/application-types";
 import Image from "next/image";
 
-export default function ImageContent({ image }) {
+type ImageContentProps = {
+  image: SpoolThread["image"]
+}
+
+export default function ImageContent({ image }: ImageContentProps) {
   if (!image) {
     return null;
   }
