@@ -1,8 +1,8 @@
 import type { SpoolThread } from "@/application-types";
 
 type VideoContentProps = {
-  url: SpoolThread["video"],
-}
+  url: SpoolThread["video"];
+};
 
 export default function VideoContent({ url }: VideoContentProps) {
   if (!url) {
@@ -14,13 +14,7 @@ export default function VideoContent({ url }: VideoContentProps) {
    * See - https://stackoverflow.com/a/69802843/2104976
    */
   return (
-    <video
-      className="rounded w-full h-auto mb-2"
-      controls=""
-      autoPlay
-      loop
-      muted
-    >
+    <video className="rounded w-full h-auto mb-2" autoPlay loop muted>
       <source
         src={`/api/video?source=${encodeURIComponent(url)}`}
         className="w-full h-auto"

@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { HeartOutlineSVG, HeartSolidSVG, SVGIconProps } from "@/components/SVGIcons";
+import {
+  HeartOutlineSVG,
+  HeartSolidSVG,
+  SVGIconProps,
+} from "@/components/SVGIcons";
 import { useSelf } from "@/hooks/useSelf";
 import type { SpoolThread } from "@/application-types";
 
-type LikeProps = Pick<SpoolThread, 'id' | 'hasLiked'>
+type LikeProps = Pick<SpoolThread, "id" | "hasLiked">;
 
 export default function Like({ hasLiked, id }: LikeProps) {
   const [isFilled, setIsFilled] = useState(false);

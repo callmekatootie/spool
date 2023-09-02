@@ -2,8 +2,8 @@ import borel from "@/utils/borel";
 import type { SpoolThreadNestedQuotedPost } from "@/application-types";
 
 type NestedQuotedPost = {
-  post?: SpoolThreadNestedQuotedPost
-}
+  post?: SpoolThreadNestedQuotedPost;
+};
 
 export default function NestedQuotedPost({ post }: NestedQuotedPost) {
   if (!post) {

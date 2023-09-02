@@ -9,29 +9,32 @@ enum DISPATCH_TYPE {
   SUBMITTING_CONTENT = "submitting_content",
   SUBMITTED_CONTENT = "submitted_content",
   UPDATED_CONTENT = "updated_content",
-};
+}
 
 const initialState = {
   content: "",
-  submitInProgress: false
-}
+  submitInProgress: false,
+};
 
 type ACTION_A = {
-  type: DISPATCH_TYPE.INVOKED_CLOSE | DISPATCH_TYPE.SUBMITTING_CONTENT | DISPATCH_TYPE.SUBMITTED_CONTENT
-}
+  type:
+    | DISPATCH_TYPE.INVOKED_CLOSE
+    | DISPATCH_TYPE.SUBMITTING_CONTENT
+    | DISPATCH_TYPE.SUBMITTED_CONTENT;
+};
 
 type ACTION_B = {
-  type: DISPATCH_TYPE.UPDATED_CONTENT,
-  content: string
-}
+  type: DISPATCH_TYPE.UPDATED_CONTENT;
+  content: string;
+};
 
-type ACTION_TYPES = ACTION_A | ACTION_B
+type ACTION_TYPES = ACTION_A | ACTION_B;
 
 type ComposeEditorProps = Partial<{
-  replyToPost: Pick<SpoolThread, 'id' | 'handle'>,
-  quotePost: Pick<SpoolThread, 'id' | 'handle'> & { hasReposted: boolean },
-  onClose: () => void
-}>
+  replyToPost: Pick<SpoolThread, "id" | "handle">;
+  quotePost: Pick<SpoolThread, "id" | "handle"> & { hasReposted: boolean };
+  onClose: () => void;
+}>;
 
 function reducer(state: typeof initialState, action: ACTION_TYPES) {
   switch (action.type) {
@@ -55,7 +58,11 @@ function reducer(state: typeof initialState, action: ACTION_TYPES) {
   }
 }
 
-export default function ComposeEditor({ replyToPost, quotePost, onClose = () => null }: ComposeEditorProps) {
+export default function ComposeEditor({
+  replyToPost,
+  quotePost,
+  onClose = () => null,
+}: ComposeEditorProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const ref = useClickAway(() => closeEditor());
@@ -113,7 +120,10 @@ export default function ComposeEditor({ replyToPost, quotePost, onClose = () => 
 
   return (
     <div className="fixed top-0 left-0 z-50 w-screen h-screen bg-black/50 flex items-center justify-center">
-      <section className="bg-white w-2/6 rounded border p-4" ref={ref as MutableRefObject<HTMLElement>}>
+      <section
+        className="bg-white w-2/6 rounded border p-4"
+        ref={ref as MutableRefObject<HTMLElement>}
+      >
         <label
           className="text-sm font-semibold text-gray-900 flex justify-between block"
           htmlFor="content"

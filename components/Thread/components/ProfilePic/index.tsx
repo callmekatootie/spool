@@ -2,7 +2,9 @@ import type { SpoolThread } from "@/application-types";
 import clsx from "clsx";
 import Image from "next/image";
 
-type ProfilePicProps = Pick<SpoolThread, 'handle' | 'profilePic'> & { isQuotedPost: boolean }
+type ProfilePicProps = Pick<SpoolThread, "handle" | "profilePic"> & {
+  isQuotedPost: boolean;
+};
 
 export default function ProfilePic({
   handle,

@@ -9,9 +9,9 @@ import clsx from "clsx";
 import NoMorePost from "../Thread/NoMorePost";
 
 type SpoolProps = {
-  username: string,
-  onDeletion: (handle: string) => void
-}
+  username: string;
+  onDeletion: (handle: string) => void;
+};
 
 export default function Spool({ username, onDeletion }: SpoolProps) {
   const {

@@ -1,6 +1,6 @@
 import type { SpoolThread } from "@/application-types";
 
-type StatsProps = Pick<SpoolThread, 'likeCount' | 'replyCount'>
+type StatsProps = Pick<SpoolThread, "likeCount" | "replyCount">;
 
 function getReplylabel(replyCount: number) {
   const suffix = replyCount === 1 ? "reply" : "replies";

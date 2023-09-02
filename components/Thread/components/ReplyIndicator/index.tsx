@@ -1,8 +1,11 @@
 import type { SpoolThread } from "@/application-types";
 
-type ReplyIndicatorProps = Pick<SpoolThread, 'isReply' | 'replyTo'>
+type ReplyIndicatorProps = Pick<SpoolThread, "isReply" | "replyTo">;
 
-export default function ReplyIndicator({ isReply, replyTo }: ReplyIndicatorProps) {
+export default function ReplyIndicator({
+  isReply,
+  replyTo,
+}: ReplyIndicatorProps) {
   let markup;
 
   if (isReply) {

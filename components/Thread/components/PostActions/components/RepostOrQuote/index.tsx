@@ -6,7 +6,9 @@ import clsx from "clsx";
 import ComposeEditor from "@/components/Compose/editor";
 import type { SpoolThread } from "@/application-types";
 
-type RepostOrQuoteProps = Pick<SpoolThread, 'id' | 'handle'> & { hasReposted: boolean }
+type RepostOrQuoteProps = Pick<SpoolThread, "id" | "handle"> & {
+  hasReposted: boolean;
+};
 
 export default function RepostOrQuote(props: RepostOrQuoteProps) {
   const [showDropdown, setShowDropdown] = useState(false);

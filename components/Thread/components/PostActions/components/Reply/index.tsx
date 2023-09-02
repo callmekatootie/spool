@@ -4,7 +4,7 @@ import { useSelf } from "@/hooks/useSelf";
 import ComposeEditor from "@/components/Compose/editor";
 import type { SpoolThread } from "@/application-types";
 
-type ReplyProps = Pick<SpoolThread, 'id' | 'handle'>
+type ReplyProps = Pick<SpoolThread, "id" | "handle">;
 
 export default function Reply(props: ReplyProps) {
   const [showEditor, setShowEditor] = useState(false);

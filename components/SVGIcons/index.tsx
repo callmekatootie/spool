@@ -13,9 +13,9 @@ import UserSolidSVG from "./UserSolid";
 import VerifiedSolidSVG from "./VerifiedSolid";
 
 export type SVGIconProps = {
-  className: string,
-  onClick?: MouseEventHandler
-}
+  className: string;
+  onClick?: MouseEventHandler;
+};
 
 export {
   CloseOutlineSVG,

@@ -4,8 +4,8 @@ import "linkify-plugin-mention";
 import "linkify-plugin-hashtag";
 
 type TextContentProps = {
-  content: SpoolThread["content"]
-}
+  content: SpoolThread["content"];
+};
 
 export default function TextContent({ content }: TextContentProps) {
   if (!content || content.length === 0) {

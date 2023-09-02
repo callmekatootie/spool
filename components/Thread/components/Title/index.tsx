@@ -2,9 +2,13 @@ import type { SpoolThread } from "@/application-types";
 import { VerifiedSolidSVG } from "@/components/SVGIcons";
 import getTimeSince from "@/utils/timeSince";
 
-type TitleProps = Pick<SpoolThread, 'handle' | 'createdAt' | 'isUserVerified'>
+type TitleProps = Pick<SpoolThread, "handle" | "createdAt" | "isUserVerified">;
 
-export default function Title({ handle, createdAt, isUserVerified }: TitleProps) {
+export default function Title({
+  handle,
+  createdAt,
+  isUserVerified,
+}: TitleProps) {
   const dateTile = new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium",
     timeStyle: "short",

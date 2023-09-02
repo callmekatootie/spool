@@ -1,8 +1,11 @@
 import type { SpoolThread } from "@/application-types";
 
-type RepostIndicatorProps = Pick<SpoolThread, 'handle' | 'isRepost'>
+type RepostIndicatorProps = Pick<SpoolThread, "handle" | "isRepost">;
 
-export default function RepostIndicator({ handle, isRepost }: RepostIndicatorProps) {
+export default function RepostIndicator({
+  handle,
+  isRepost,
+}: RepostIndicatorProps) {
   let markup;
 
   if (isRepost) {

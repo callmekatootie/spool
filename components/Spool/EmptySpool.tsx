@@ -3,8 +3,8 @@ import { PlusSolidSVG } from "../SVGIcons";
 import SearchUsers from "../Search";
 
 type EmptySpoolProps = {
-  onEnterUsername: (handle: string) => void
-}
+  onEnterUsername: (handle: string) => void;
+};
 
 export default function EmptySpool({ onEnterUsername }: EmptySpoolProps) {
   const [showNameInput, setShowNameInput] = useState(false);

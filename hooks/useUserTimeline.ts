@@ -1,8 +1,12 @@
 import useSwrInfinite from "swr/infinite";
 import { fetcher } from "./common";
-import { GetUserTimeline, SpoolThread } from "@/application-types"
+import { GetUserTimeline, SpoolThread } from "@/application-types";
 
-const getKey = (pageIndex: number, previousPageData: GetUserTimeline, username: string) => {
+const getKey = (
+  pageIndex: number,
+  previousPageData: GetUserTimeline,
+  username: string,
+) => {
   if (previousPageData && !previousPageData.cursor) {
     return null;
   }
@@ -17,15 +21,13 @@ const getKey = (pageIndex: number, previousPageData: GetUserTimeline, username: 
 };
 
 const getImages = (source: SpoolThread["image"][]) => {
-  return source.reduce(
-    (prev, current) => {
-      if ((prev?.width || 0) > (current?.width || 0)) {
-        return prev
-      }
-      return current
+  return source.reduce((prev, current) => {
+    if ((prev?.width || 0) > (current?.width || 0)) {
+      return prev;
     }
-  );
-}
+    return current;
+  });
+};
 
 function useUserTimeline(username: string) {
   const { data, error, isLoading, mutate, size, setSize, isValidating } =
@@ -36,11 +38,13 @@ function useUserTimeline(username: string) {
       revalidateFirstPage: false, // Don't set this to false. See https://github.com/junhoyeo/threads-api/issues/311
     });
 
-  const emptyTimelineArray = [] as GetUserTimeline[]
-  const emptyThreadsArray = [] as GetUserTimeline["threads"]
+  const emptyTimelineArray = [] as GetUserTimeline[];
+  const emptyThreadsArray = [] as GetUserTimeline["threads"];
 
   const threads: GetUserTimeline["threads"] = data
-    ? emptyThreadsArray.concat(...emptyTimelineArray.concat(...data).map((d) => d.threads))
+    ? emptyThreadsArray.concat(
+        ...emptyTimelineArray.concat(...data).map((d) => d.threads),
+      )
     : [];
   const hasReachedEnd = data && data.length && !data[data.length - 1].cursor;
   const isLoadingMore =
@@ -88,7 +92,7 @@ function useUserTimeline(username: string) {
         thread.video = reference.video_versions[0].url;
       } else if (reference.image_versions2.candidates.length > 0) {
         // Capture image content - either video or image content possible (or neither). Never both together
-        thread.image = getImages(reference.image_versions2.candidates)
+        thread.image = getImages(reference.image_versions2.candidates);
       }
 
       // Capture any link previews
@@ -110,7 +114,8 @@ function useUserTimeline(username: string) {
       if (reference.text_post_app_info.reply_to_author) {
         thread.isReply = true;
         // Incorrectly types in external API - See https://github.com/junhoyeo/threads-api/issues/325
-        const replyToAuthor = reference.text_post_app_info.reply_to_author as unknown as { username: string, id: string }
+        const replyToAuthor = reference.text_post_app_info
+          .reply_to_author as unknown as { username: string; id: string };
         thread.replyTo = replyToAuthor.username;
       }
 
@@ -165,7 +170,9 @@ function useUserTimeline(username: string) {
           thread.quotedPost.video = quotedPost.video_versions[0].url;
         } else if (quotedPost.image_versions2.candidates.length > 0) {
           // Capture image in the quoted post
-          thread.quotedPost.image = getImages(quotedPost.image_versions2.candidates)
+          thread.quotedPost.image = getImages(
+            quotedPost.image_versions2.candidates,
+          );
         }
 
         // Capture link previews in the quoted post

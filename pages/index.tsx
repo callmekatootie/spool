@@ -10,9 +10,9 @@ import { useSelf } from "@/hooks/useSelf";
 import ComposeThread from "@/components/Compose";
 
 type SpoolConfig = {
-  type: "single",
-  username: string
-}
+  type: "single";
+  username: string;
+};
 
 export default function Home() {
   const [loading, setLoading] = useState(true);

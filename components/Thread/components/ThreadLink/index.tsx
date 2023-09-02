@@ -1,8 +1,11 @@
 import type { SpoolThread } from "@/application-types";
 
-type ThreadLinkProps = Pick<SpoolThread, 'isInternalNode' | 'isRootNode'>
+type ThreadLinkProps = Pick<SpoolThread, "isInternalNode" | "isRootNode">;
 
-export default function ThreadLink({ isInternalNode, isRootNode }: ThreadLinkProps) {
+export default function ThreadLink({
+  isInternalNode,
+  isRootNode,
+}: ThreadLinkProps) {
   let markup;
 
   if (isInternalNode || isRootNode) {
