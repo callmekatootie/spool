@@ -15,7 +15,10 @@ export const config = {
   },
 };
 
-export default async function proxyVideo(req: NextApiRequest, res: NextApiResponse) {
+export default async function proxyVideo(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   return new Promise<void>((resolve, reject) => {
     const { source } = req.query;
 

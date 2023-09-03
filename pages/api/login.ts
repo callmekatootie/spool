@@ -19,15 +19,15 @@ export default withIronSessionApiRoute(async (req, res) => {
 
     const token = await threadsApi.getToken();
     if (!token) {
-      throw new Error("Login failed. Could not get auth token.")
+      throw new Error("Login failed. Could not get auth token.");
     }
-    user.token = token
+    user.token = token;
 
     const userId = await threadsApi.getCurrentUserID();
     if (!userId) {
-      throw new Error("Login failed. Could not get logged in user id")
+      throw new Error("Login failed. Could not get logged in user id");
     }
-    user.userID = userId
+    user.userID = userId;
 
     req.session.user = user;
     await req.session.save();

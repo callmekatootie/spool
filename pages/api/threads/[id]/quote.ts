@@ -14,9 +14,9 @@ export default withIronSessionApiRoute(async function handler(req, res) {
   } = req;
 
   if (typeof id !== "string") {
-    res.status(400).send({ message: "id must be a single string" })
+    res.status(400).send({ message: "id must be a single string" });
 
-    return
+    return;
   }
 
   if (req.method === "POST") {

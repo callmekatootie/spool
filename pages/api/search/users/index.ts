@@ -16,9 +16,9 @@ export default withIronSessionApiRoute(async function handler(req, res) {
   const { q } = req.query;
 
   if (typeof q !== "string") {
-    res.status(400).send({ message: "missing search query" })
+    res.status(400).send({ message: "missing search query" });
 
-    return
+    return;
   }
 
   const query = decodeURIComponent(q);
