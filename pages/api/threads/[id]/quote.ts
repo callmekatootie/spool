@@ -8,29 +8,27 @@ export default withIronSessionApiRoute(async function handler(req, res) {
 
     return;
   }
-  const { id } = req.query;
+  const {
+    query: { id },
+    body,
+  } = req;
+
+  if (typeof id !== "string") {
+    res.status(400).send({ message: "id must be a single string" })
+
+    return
+  }
 
   if (req.method === "POST") {
-    try {
-      const threadsApi = new ThreadsAPI({
-        deviceID: process.env.DEVICE_ID,
-        ...req.session.user,
-      });
-
-      await threadsApi.repost(id);
-
-      res.status(200).json({});
-    } catch (e) {
-      console.log(e);
-      res.status(200).json({});
-    }
-  } else if (req.method === "DELETE") {
     const threadsApi = new ThreadsAPI({
       deviceID: process.env.DEVICE_ID,
       ...req.session.user,
     });
 
-    await threadsApi.unrepost(id);
+    await threadsApi.publish({
+      text: body.text,
+      quotedPostID: id,
+    });
 
     res.status(200).json({});
   } else {

@@ -59,3 +59,8 @@ export type SpoolThread = {
   urlCode: string;
   video?: string;
 };
+
+export type SessionUser = {
+  token: string;
+  userID: string;
+};

@@ -3,6 +3,7 @@
  * https://github.com/stevenlafl/threads-web-client/blob/master/src/pages/api/video/%5B...path%5D.ts
  */
 
+import type { NextApiRequest, NextApiResponse } from "next";
 import httpProxy from "http-proxy";
 
 const proxy = httpProxy.createProxyServer();
@@ -14,11 +15,11 @@ export const config = {
   },
 };
 
-export default async function proxyVideo(req, res) {
-  return new Promise((resolve, reject) => {
+export default async function proxyVideo(req: NextApiRequest, res: NextApiResponse) {
+  return new Promise<void>((resolve, reject) => {
     const { source } = req.query;
 
-    const url = new URL(decodeURIComponent(source));
+    const url = new URL(decodeURIComponent(source as string));
 
     const { origin, pathname, searchParams } = url;
 

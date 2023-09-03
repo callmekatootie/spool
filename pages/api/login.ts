@@ -1,6 +1,7 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "@/utils/session";
 import { ThreadsAPI } from "threads-api";
+import type { SessionUser } from "@/application-types";
 
 export default withIronSessionApiRoute(async (req, res) => {
   if (req.method !== "POST") {
@@ -8,7 +9,7 @@ export default withIronSessionApiRoute(async (req, res) => {
   }
 
   try {
-    const user = {};
+    const user: SessionUser = {} as SessionUser;
 
     const threadsApi = new ThreadsAPI({
       username: process.env.THREADS_USERNAME,
@@ -16,8 +17,17 @@ export default withIronSessionApiRoute(async (req, res) => {
       deviceID: process.env.DEVICE_ID,
     });
 
-    user.token = await threadsApi.getToken();
-    user.userID = await threadsApi.getCurrentUserID();
+    const token = await threadsApi.getToken();
+    if (!token) {
+      throw new Error("Login failed. Could not get auth token.")
+    }
+    user.token = token
+
+    const userId = await threadsApi.getCurrentUserID();
+    if (!userId) {
+      throw new Error("Login failed. Could not get logged in user id")
+    }
+    user.userID = userId
 
     req.session.user = user;
     await req.session.save();
@@ -27,6 +37,11 @@ export default withIronSessionApiRoute(async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An error occurred during login" });
+    }
   }
 }, sessionOptions);

@@ -10,6 +10,12 @@ export default withIronSessionApiRoute(async function handler(req, res) {
   }
   const { id } = req.query;
 
+  if (typeof id !== "string") {
+    res.status(400).send({ message: "id must be a single string" })
+
+    return
+  }
+
   if (req.method === "POST") {
     const threadsApi = new ThreadsAPI({
       deviceID: process.env.DEVICE_ID,

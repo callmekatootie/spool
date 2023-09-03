@@ -53,6 +53,7 @@
     "url": "https://github.com/callmekatootie/spool"
   },
   "devDependencies": {
+    "@types/http-proxy": "^1.17.11",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.3"
   }

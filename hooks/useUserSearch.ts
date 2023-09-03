@@ -12,7 +12,7 @@ function useUserSearch(query: string) {
   );
 
   return {
-    results: data ? data.users : null,
+    results: data ?? [],
     error,
     isLoading,
   };

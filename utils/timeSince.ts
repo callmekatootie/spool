@@ -2,11 +2,11 @@
  * Source: https://www.reddit.com/r/javascript/comments/1j3aie/time_ago_in_words_simple_pretty_timestamps_for_js/cbao80i/
  */
 
-export default function getTimeSince(datetime) {
+export default function getTimeSince(datetime: number) {
   const now = Date.now();
 
   // datetime will be epoch time, hence the 1000 multipler to get milliseconds
-  let difference = now - new Date(datetime * 1000);
+  let difference = now.valueOf() - new Date(datetime * 1000).valueOf();
 
   difference = Math.floor(difference / 1000);
 
